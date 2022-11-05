@@ -1,17 +1,15 @@
 import { AgendaManager } from './AgendaManager';
-import { API } from './api';
+import { API } from './ApiManager';
 import { CalendarManager } from './CalendarManager';
 
-async function getCal(url: string) {
-
-}
-
 async function init() {
-  const agendaManager = new AgendaManager('/agendas')
+  const agendaManager = new AgendaManager('agendas')
   const agendas = await agendaManager.loadAgendas()
 
   const calendarManager = new CalendarManager(agendas)
 
-  const api = new API(3000, agendas)
+  const api = new API(3000, calendarManager)
   api.start()
 }
+
+init()

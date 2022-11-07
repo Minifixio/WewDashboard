@@ -14,18 +14,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.API = void 0;
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const DebugManager_1 = require("./DebugManager");
 class API {
     constructor(port, calendarManager) {
         this.calendarManager = {};
         this.port = port;
         this.app = (0, express_1.default)();
+        this.app.use((0, cors_1.default)());
         this.calendarManager = calendarManager;
         this.debug = new DebugManager_1.DebugManager('ApiManager');
     }
     start() {
         this.app.get('/test', (req, res) => {
-            res.send('Backend live !');
+            res.send('Test is working');
+        });
+        this.app.get('/', (req, res) => {
+            res.send('WewDashboardBackend live !');
         });
         this.app.get('/calendar/24hours', (req, res) => __awaiter(this, void 0, void 0, function* () {
             const data = yield this.calendarManager.get24hEvents();

@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from 'src/app/services/api.service';
 declare var gapi: any;
 
 @Component({
@@ -10,11 +11,11 @@ declare var gapi: any;
 export class CalendarComponent implements OnInit {
 
   constructor(
-    private zone: NgZone
+    private apiService: ApiService
   ) { }
 
   ngOnInit(): void {
-      
+    this.apiService.get("calendar", "24hours").then(val => console.log(val))
   }
 
 }

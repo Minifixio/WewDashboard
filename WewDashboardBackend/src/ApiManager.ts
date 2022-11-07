@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from 'express';
+import cors from 'cors'
 import { CalendarManager } from './CalendarManager';
 import { Agenda } from './models/Agenda';
 import { DebugManager } from './DebugManager';
@@ -12,14 +13,19 @@ export class API {
 
     constructor(port: number, calendarManager: CalendarManager) {
         this.port = port
-        this.app = express();
+        this.app = express()
+        this.app.use(cors())
         this.calendarManager = calendarManager
         this.debug = new DebugManager('ApiManager')
     }
 
     start() {
         this.app.get('/test', (req: Request, res: Response) => {
-            res.send('Backend live !')
+            res.send('Test is working')
+        })
+
+        this.app.get('/', (req: Request, res: Response) => {
+            res.send('WewDashboardBackend live !')
         })
           
         this.app.get('/calendar/24hours', async (req: Request, res: Response) => {

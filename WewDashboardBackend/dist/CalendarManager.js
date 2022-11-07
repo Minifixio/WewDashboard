@@ -30,13 +30,13 @@ class CalendarManager {
     get24hEvents() {
         return __awaiter(this, void 0, void 0, function* () {
             this.debug.log('Getting next 24h events...');
-            const res = [];
+            var res = [];
             for (const agenda of this.agendas) {
                 const calendar = yield this.getCalendar(agenda.icalUrl);
                 const today = new Date();
-                console.log(today, new Date(today.getTime() + 60 * 60 * 24 * 1000));
                 const events = this.getEventsInRange(calendar, today, new Date(today.getTime() + 60 * 60 * 24 * 1000), agenda);
-                res.concat(events);
+                this.debug.log(`Found ${events.length} events for the next 24 hours for agenda ${agenda.name}`);
+                res = res.concat(events);
             }
             this.debug.log(`Found ${res.length} events for the next 24 hours`);
             return res;
@@ -87,6 +87,7 @@ class CalendarManager {
                 }
             }
         }
+        console.log(res.length);
         return res;
     }
 }

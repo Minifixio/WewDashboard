@@ -23,13 +23,14 @@ export class CalendarManager {
     async get24hEvents(): Promise<CalendarEvent[]> {
         this.debug.log('Getting next 24h events...')
 
-        const res: CalendarEvent[] = []
+        var res: CalendarEvent[] = []
+
         for (const agenda of this.agendas) {
             const calendar = await this.getCalendar(agenda.icalUrl)
             const today = new Date()
-            console.log(today, new Date(today.getTime() + 60 * 60 * 24 * 1000))
             const events = this.getEventsInRange(calendar, today, new Date(today.getTime() + 60 * 60 * 24 * 1000), agenda)
-            res.concat(events)
+            this.debug.log(`Found ${events.length} events for the next 24 hours for agenda ${agenda.name}`)
+            res = res.concat(events)
         }
 
         this.debug.log(`Found ${res.length} events for the next 24 hours`)
@@ -92,7 +93,8 @@ export class CalendarManager {
                 }
             }
         }
-    
+        
+        console.log(res.length)
         return res
     }
 }

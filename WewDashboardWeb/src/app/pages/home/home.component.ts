@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CalendarComponent } from 'src/app/components/calendar/calendar.component';
+import { CalendarComponentToday } from 'src/app/components/calendar-today/calendar-today.component';
 import { MeteoComponent } from 'src/app/components/meteo/meteo.component';
 
 @Component({
@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   meteoCards!: MeteoComponent
 
   @ViewChild('calendar', {static: true})
-  calendar!: CalendarComponent
+  calendar!: CalendarComponentToday
   
   constructor() { }
 

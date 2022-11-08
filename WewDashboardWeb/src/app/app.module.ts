@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
+import { CalendarComponentToday } from './components/calendar-today/calendar-today.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MeteoCardComponent } from './components/meteo-card/meteo-card.component';
 import { MeteoComponent } from './components/meteo/meteo.component';
@@ -23,7 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarComponent,
+    CalendarComponentToday,
     HomeComponent,
     MeteoComponent,
     MeteoCardComponent,

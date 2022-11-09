@@ -13,13 +13,10 @@ import { MeteoCardTodayComponent } from './components/meteo-card-today/meteo-car
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatGridListModule} from '@angular/material/grid-list';
-import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 @NgModule({
@@ -36,13 +33,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatGridListModule,
-    FlexLayoutModule,
     HttpClientModule,
     MatCardModule,
     MatListModule,
     MatDividerModule,
-    MatIconModule,
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

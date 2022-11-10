@@ -1,11 +1,18 @@
-<div *ngIf="todayEvents | async; let events">
-    <mwl-calendar-day-view
-      [viewDate]="viewDate"
-      [dayStartHour]="dayStartHour"
-      [dayEndHour]="dayEndHour"
-      [events]="toCalendarEvent(events)"
-    >
-    </mwl-calendar-day-view>
+<div (window:resize)="onResize($event)" id="calendarDiv" #calendarDiv >
+    <div *ngIf="hourSegmentHeight > 0">
+        <div  *ngIf="todayEvents | async; let events">
+            <mwl-calendar-day-view 
+            [viewDate]="viewDate"
+            [dayStartHour]="dayStartHour"
+            [dayEndHour]="dayEndHour"
+            [hourSegmentHeight]="hourSegmentHeight"
+            [events]="toCalendarEvent(events)"
+          >
+          </mwl-calendar-day-view>
+        </div>
+    </div>
+
+
     <!-- <mat-card>
         <mat-card-title>
             {{event.title}}

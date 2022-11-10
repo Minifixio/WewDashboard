@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
 import { CalEvent } from 'src/app/models/Calendar';
@@ -19,6 +19,9 @@ export class CalendarComponentToday implements OnInit {
   dayEndHour: number = 23
   dayStartHour: number = 7
 
+  hourSegmentHeight: number = 0
+  @ViewChild('calendarDiv') calendarDiv: ElementRef | undefined;
+
   constructor(
     private apiService: ApiService,
     private calendarService: CalendarService
@@ -26,6 +29,18 @@ export class CalendarComponentToday implements OnInit {
 
   ngOnInit(): void {
     this.todayEvents = this.apiService.get("calendar", "24hours")
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.hourSegmentHeight = (this.calendarDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)*2))
+      console.log(this.calendarDiv) 
+    }, 0)
+  }
+
+  onResize(event: any) {
+    console.log(this.calendarDiv?.nativeElement.offsetHeight)
+    this.hourSegmentHeight = (this.calendarDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)*2))
   }
 
   toCalendarEvent(events: CalEvent[]): CalendarEvent[] {

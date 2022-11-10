@@ -1,5 +1,5 @@
 import { Agenda } from "./Agenda";
-import { CalendarEvent } from "./CalendarEvent";
+import { CalendarEvent } from "./CalEvent";
 
 export interface Calendar {
     agenda: Agenda

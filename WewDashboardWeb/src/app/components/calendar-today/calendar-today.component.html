@@ -1,10 +1,17 @@
-<div *ngFor="let event of todayEvents | async">
-    <mat-card>
+<div *ngIf="todayEvents | async; let events">
+    <mwl-calendar-day-view
+      [viewDate]="viewDate"
+      [dayStartHour]="dayStartHour"
+      [dayEndHour]="dayEndHour"
+      [events]="toCalendarEvent(events)"
+    >
+    </mwl-calendar-day-view>
+    <!-- <mat-card>
         <mat-card-title>
             {{event.title}}
         </mat-card-title>
         <mat-card-subtitle>
             {{event.description}}
         </mat-card-subtitle>
-    </mat-card>
+    </mat-card> -->
 </div>

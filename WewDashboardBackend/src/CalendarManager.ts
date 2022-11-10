@@ -1,7 +1,7 @@
 import ical from 'node-ical'
 import { DebugManager } from './DebugManager';
 import { Agenda } from './models/Agenda';
-import { CalendarEvent } from './models/CalendarEvent';
+import { CalEvent } from './models/CalEvent';
 import { DayEvents } from './models/DayEvents';
 
 
@@ -20,10 +20,10 @@ export class CalendarManager {
         return res
     }
 
-    async get24hEvents(): Promise<CalendarEvent[]> {
+    async get24hEvents(): Promise<CalEvent[]> {
         this.debug.log('Getting next 24h events...')
 
-        var res: CalendarEvent[] = []
+        var res: CalEvent[] = []
 
         for (const agenda of this.agendas) {
             const calendar = await this.getCalendar(agenda.icalUrl)
@@ -71,8 +71,8 @@ export class CalendarManager {
         return res
     }
 
-    veventToCalEvent(vevent: ical.VEvent, agenda: Agenda): CalendarEvent {
-        var calEvent = {} as CalendarEvent
+    veventToCalEvent(vevent: ical.VEvent, agenda: Agenda): CalEvent {
+        var calEvent = {} as CalEvent
         calEvent.title = vevent.summary
         calEvent.description = vevent.description
         calEvent.location = vevent.location
@@ -82,13 +82,13 @@ export class CalendarManager {
         return calEvent
     }
     
-    getEventsInRange(calResponse: ical.CalendarResponse, start: Date, end: Date, agenda: Agenda): CalendarEvent[] {
-        var res: CalendarEvent[] = []
+    getEventsInRange(calResponse: ical.CalendarResponse, start: Date, end: Date, agenda: Agenda): CalEvent[] {
+        var res: CalEvent[] = []
     
         for (const key in calResponse) {
             const event: ical.CalendarComponent = calResponse[key]
             if (event.type == "VEVENT") {
-                if (event.start.getTime() > start.getTime() && event.end.getTime() < end.getTime()) {
+                if (event.end.getTime() > start.getTime() && event.end.getTime() < end.getTime()) {
                     res.push(this.veventToCalEvent(event, agenda))
                 }
             }

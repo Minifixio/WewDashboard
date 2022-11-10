@@ -1,6 +1,6 @@
 import { Agenda } from "./Agenda"
 
-export interface CalendarEvent {
+export interface CalEvent {
     start: Date
     end: Date
     location: string

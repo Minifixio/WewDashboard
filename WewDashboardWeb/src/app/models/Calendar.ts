@@ -5,12 +5,13 @@ export interface Agenda {
 
 export interface Calendar {
     agenda: Agenda
-    events: CalendarEvent[]
+    events: CalEvent[]
 }
 
-export interface CalendarEvent {
-    start: Date
-    end: Date
+export interface CalEvent {
+    // Date as string format : 2022-11-11T05:00:00.000Z
+    start: string
+    end: string 
     location: string
     title: string
     description: string
@@ -19,5 +20,5 @@ export interface CalendarEvent {
 
 export interface DayEvents {
     day: Date
-    events: CalendarEvent[]
+    events: CalEvent[]
 }

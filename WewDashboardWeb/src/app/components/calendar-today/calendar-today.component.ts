@@ -1,7 +1,9 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiService } from 'src/app/services/api.service';
-import { CalendarEvent } from 'src/app/models/Calendar';
+import { CalEvent } from 'src/app/models/Calendar';
+import { CalendarEvent } from 'angular-calendar';
+import { CalendarService } from 'src/app/services/calendar.service';
 declare var gapi: any;
 
 @Component({
@@ -11,14 +13,27 @@ declare var gapi: any;
 })
 export class CalendarComponentToday implements OnInit {
 
-  todayEvents = {} as Promise<CalendarEvent[]>
+  todayEvents = {} as Promise<CalEvent[]>
+  viewDate: Date = new Date()
+  nowHour: number = new Date().getHours()
+  dayEndHour: number = 23
+  dayStartHour: number = 7
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private calendarService: CalendarService
   ) { }
 
   ngOnInit(): void {
     this.todayEvents = this.apiService.get("calendar", "24hours")
+  }
+
+  toCalendarEvent(events: CalEvent[]): CalendarEvent[] {
+    var res: CalendarEvent[] = []
+    for (let event of events) {
+      res.push(this.calendarService.calEventToCalendarEvent(event))
+    }
+    return res
   }
 
 }

@@ -82,7 +82,7 @@ class CalendarManager {
         for (const key in calResponse) {
             const event = calResponse[key];
             if (event.type == "VEVENT") {
-                if (event.start.getTime() > start.getTime() && event.end.getTime() < end.getTime()) {
+                if (event.end.getTime() > start.getTime() && event.end.getTime() < end.getTime()) {
                     res.push(this.veventToCalEvent(event, agenda));
                 }
             }

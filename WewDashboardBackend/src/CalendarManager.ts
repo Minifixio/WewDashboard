@@ -52,12 +52,12 @@ export class CalendarManager {
         for (const agenda of this.agendas) {
             const calendar = await this.getCalendar(agenda.icalUrl)
 
-            const eventDay1 = await this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 1)), new Date((new Date()).setDate(today.getDate() + 2)), agenda)
-            const eventDay2 = await this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 2)), new Date((new Date()).setDate(today.getDate() + 3)), agenda)
-            const eventDay3 = await this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 3)), new Date((new Date()).setDate(today.getDate() + 4)), agenda)
-            day1Events.concat(eventDay1)
-            day2Events.concat(eventDay2)
-            day3Events.concat(eventDay3)
+            const eventDay1 = await this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 0)), new Date((new Date()).setDate(today.getDate() + 1)), agenda)
+            const eventDay2 = await this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 1)), new Date((new Date()).setDate(today.getDate() + 2)), agenda)
+            const eventDay3 = await this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 2)), new Date((new Date()).setDate(today.getDate() + 3)), agenda)
+            day1Events = day1Events.concat(eventDay1)
+            day2Events = day2Events.concat(eventDay2)
+            day3Events = day3Events.concat(eventDay3)
 
         }
 

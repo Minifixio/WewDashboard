@@ -53,12 +53,12 @@ class CalendarManager {
             const today = new Date((new Date()).setHours(0, 0, 0, 0));
             for (const agenda of this.agendas) {
                 const calendar = yield this.getCalendar(agenda.icalUrl);
-                const eventDay1 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 1)), new Date((new Date()).setDate(today.getDate() + 2)), agenda);
-                const eventDay2 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 2)), new Date((new Date()).setDate(today.getDate() + 3)), agenda);
-                const eventDay3 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 3)), new Date((new Date()).setDate(today.getDate() + 4)), agenda);
-                day1Events.concat(eventDay1);
-                day2Events.concat(eventDay2);
-                day3Events.concat(eventDay3);
+                const eventDay1 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 0)), new Date((new Date()).setDate(today.getDate() + 1)), agenda);
+                const eventDay2 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 1)), new Date((new Date()).setDate(today.getDate() + 2)), agenda);
+                const eventDay3 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 2)), new Date((new Date()).setDate(today.getDate() + 3)), agenda);
+                day1Events = day1Events.concat(eventDay1);
+                day2Events = day2Events.concat(eventDay2);
+                day3Events = day3Events.concat(eventDay3);
             }
             res.push({
                 day: new Date((new Date()).setDate(today.getDate() + 1)),

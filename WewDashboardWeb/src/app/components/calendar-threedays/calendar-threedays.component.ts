@@ -13,6 +13,7 @@ export class CalendarThreedaysComponent implements OnInit {
   threeDaysEvents = {} as Promise<DayEvents[]>
   dayEndHour: number = 23
   dayStartHour: number = 7
+  today = new Date()
 
   constructor(
     private apiService: ApiService,
@@ -21,6 +22,9 @@ export class CalendarThreedaysComponent implements OnInit {
 
   ngOnInit(): void {
     this.threeDaysEvents = this.apiService.get<DayEvents[]>("calendar", "3days")
+    this.apiService.get<DayEvents[]>("calendar", "3days").then((res) => {
+      console.log(res)
+    })
   }
 
   returnDateFormat(dateStr: string): Date {

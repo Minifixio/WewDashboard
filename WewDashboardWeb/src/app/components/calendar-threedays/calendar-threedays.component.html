@@ -1,0 +1,19 @@
+<div>
+    <div id="calendars-div">
+        <div *ngFor="let dayEvent of threeDaysEvents | async">
+            <div>
+                <mwl-calendar-day-view 
+                [viewDate]="returnDateFormat(dayEvent.day)"
+                [dayStartHour]="dayStartHour"
+                [dayEndHour]="dayEndHour"
+                [events]="this.calendarService.toCalendarEventArray(dayEvent.events)"
+              >
+                <!-- [eventTemplate]="customEventTemplate" -->
+                <!-- [hourSegmentHeight]="hourSegmentHeight" -->
+
+              </mwl-calendar-day-view>
+            </div>
+        </div>
+
+    </div>
+</div>

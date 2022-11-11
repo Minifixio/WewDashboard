@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CalendarComponentToday } from './components/calendar-today/calendar-today.component';
+import { CalendarTodayComponent } from './components/calendar-today/calendar-today.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MeteoCardComponent } from './components/meteo-card/meteo-card.component';
 import { MeteoComponent } from './components/meteo/meteo.component';
@@ -20,16 +20,18 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarThreedaysComponent } from './components/calendar-threedays/calendar-threedays.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarComponentToday,
+    CalendarTodayComponent,
     HomeComponent,
     MeteoComponent,
     MeteoCardComponent,
-    MeteoCardTodayComponent
+    MeteoCardTodayComponent,
+    CalendarThreedaysComponent
   ],
   imports: [
     AppRoutingModule,

@@ -19,6 +19,7 @@ export interface CalEvent {
 }
 
 export interface DayEvents {
-    day: Date
+    // Date as string format : 2022-11-11T05:00:00.000Z
+    day: string
     events: CalEvent[]
 }

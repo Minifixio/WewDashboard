@@ -14,7 +14,7 @@
             [dayStartHour]="dayStartHour"
             [dayEndHour]="dayEndHour"
             [hourSegmentHeight]="hourSegmentHeight"
-            [events]="toCalendarEvent(events)"
+            [events]="this.calendarService.toCalendarEventArray(events)"
             [eventTemplate]="customEventTemplate"
           >
           </mwl-calendar-day-view>

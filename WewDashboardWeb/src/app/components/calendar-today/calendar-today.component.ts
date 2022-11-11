@@ -11,7 +11,7 @@ declare var gapi: any;
   templateUrl: './calendar-today.component.html',
   styleUrls: ['./calendar-today.component.css']
 })
-export class CalendarComponentToday implements OnInit {
+export class CalendarTodayComponent implements OnInit {
 
   todayEvents = {} as Promise<CalEvent[]>
   viewDate: Date = new Date()
@@ -24,7 +24,7 @@ export class CalendarComponentToday implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private calendarService: CalendarService
+    public calendarService: CalendarService
   ) { }
 
   ngOnInit(): void {
@@ -42,15 +42,7 @@ export class CalendarComponentToday implements OnInit {
     console.log(this.calendarDiv?.nativeElement.offsetHeight)
     this.hourSegmentHeight = (this.calendarDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)*2))
   }
-
-  toCalendarEvent(events: CalEvent[]): CalendarEvent[] {
-    var res: CalendarEvent[] = []
-    for (let event of events) {
-      res.push(this.calendarService.calEventToCalendarEvent(event))
-    }
-    return res
-  }
-
+ 
   logUnknownObjectFromView(obj: any) {
     console.log(obj)
     return null

@@ -47,24 +47,30 @@ class CalendarManager {
         return __awaiter(this, void 0, void 0, function* () {
             this.debug.log('Getting next 3 days events...');
             const res = [];
+            let day1Events = [];
+            let day2Events = [];
+            let day3Events = [];
+            const today = new Date((new Date()).setHours(0, 0, 0, 0));
             for (const agenda of this.agendas) {
                 const calendar = yield this.getCalendar(agenda.icalUrl);
-                const today = new Date((new Date()).setHours(0, 0, 0, 0));
                 const eventDay1 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 1)), new Date((new Date()).setDate(today.getDate() + 2)), agenda);
                 const eventDay2 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 2)), new Date((new Date()).setDate(today.getDate() + 3)), agenda);
                 const eventDay3 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 3)), new Date((new Date()).setDate(today.getDate() + 4)), agenda);
-                res.push({
-                    day: new Date((new Date()).setDate(today.getDate() + 1)),
-                    events: eventDay1
-                }, {
-                    day: new Date((new Date()).setDate(today.getDate() + 2)),
-                    events: eventDay2
-                }, {
-                    day: new Date((new Date()).setDate(today.getDate() + 3)),
-                    events: eventDay3
-                });
+                day1Events.concat(eventDay1);
+                day2Events.concat(eventDay2);
+                day3Events.concat(eventDay3);
             }
-            this.debug.log(`Found ${res.length} events for the next 3 days`);
+            res.push({
+                day: new Date((new Date()).setDate(today.getDate() + 1)),
+                events: day1Events
+            }, {
+                day: new Date((new Date()).setDate(today.getDate() + 2)),
+                events: day2Events
+            }, {
+                day: new Date((new Date()).setDate(today.getDate() + 3)),
+                events: day3Events
+            });
+            this.debug.log(`Found ${day1Events.length + day2Events.length + day3Events.length} events for the next 3 days`);
             return res;
         });
     }
@@ -88,7 +94,6 @@ class CalendarManager {
                 }
             }
         }
-        console.log(res.length);
         return res;
     }
 }

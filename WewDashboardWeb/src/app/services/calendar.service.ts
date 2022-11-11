@@ -19,4 +19,12 @@ export class CalendarService {
     if (event.description) { res.meta += event.location }
     return res
   }
+
+  toCalendarEventArray(events: CalEvent[]): CalendarEvent[] {
+    var res: CalendarEvent[] = []
+    for (let event of events) {
+      res.push(this.calEventToCalendarEvent(event))
+    }
+    return res
+  }
 }

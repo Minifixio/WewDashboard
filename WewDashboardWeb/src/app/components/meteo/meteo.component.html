@@ -4,6 +4,8 @@
     <app-meteo-card [dayForecast]="fiveDaysForecast.day3" id="card-3" class="meteo-card"></app-meteo-card>
     <app-meteo-card [dayForecast]="fiveDaysForecast.day4" id="card-4" class="meteo-card"></app-meteo-card>
     <app-meteo-card [dayForecast]="fiveDaysForecast.day5" id="card-5" class="meteo-card"></app-meteo-card>
-    <app-meteo-card [dayForecast]="fiveDaysForecast.day6" id="card-6" class="meteo-card"></app-meteo-card>
+    
+    <!--Because the last day can be empty-->
+    <app-meteo-card *ngIf="fiveDaysForecast.day6 && fiveDaysForecast.day6.length > 0" [dayForecast]="fiveDaysForecast.day6" id="card-6" class="meteo-card"></app-meteo-card>
 </div>
 

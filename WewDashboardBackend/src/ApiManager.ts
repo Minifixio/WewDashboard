@@ -28,8 +28,8 @@ export class API {
             res.send('WewDashboardBackend live !')
         })
           
-        this.app.get('/calendar/24hours', async (req: Request, res: Response) => {
-            const data = await this.calendarManager.get24hEvents()
+        this.app.get('/calendar/day', async (req: Request, res: Response) => {
+            const data = await this.calendarManager.getDayEvents()
             res.send(JSON.stringify(data));
         });
     

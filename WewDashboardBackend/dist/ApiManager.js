@@ -32,8 +32,8 @@ class API {
         this.app.get('/', (req, res) => {
             res.send('WewDashboardBackend live !');
         });
-        this.app.get('/calendar/24hours', (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const data = yield this.calendarManager.get24hEvents();
+        this.app.get('/calendar/day', (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const data = yield this.calendarManager.getDayEvents();
             res.send(JSON.stringify(data));
         }));
         this.app.get('/calendar/3days', (req, res) => __awaiter(this, void 0, void 0, function* () {

@@ -14,7 +14,9 @@ export class CalendarService {
     res.title = event.title
     res.end = new Date(event.end)
     res.start = new Date(event.start)
-    res.meta = event.description + event.location
+    res.meta = ""
+    if (event.description) { res.meta += event.description }
+    if (event.description) { res.meta += event.location }
     return res
   }
 }

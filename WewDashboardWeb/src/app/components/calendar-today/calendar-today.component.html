@@ -1,4 +1,12 @@
 <div (window:resize)="onResize($event)" id="calendarDiv" #calendarDiv >
+    <ng-template #customEventTemplate let-weekEvent="weekEvent" let-locale="locale">
+        <div class="event-template-div">
+            {{weekEvent.event.title}}
+            {{weekEvent.event.meta? weekEvent.event.meta : ""}}
+        </div>
+       
+    </ng-template>
+    
     <div *ngIf="hourSegmentHeight > 0">
         <div  *ngIf="todayEvents | async; let events">
             <mwl-calendar-day-view 
@@ -7,18 +15,9 @@
             [dayEndHour]="dayEndHour"
             [hourSegmentHeight]="hourSegmentHeight"
             [events]="toCalendarEvent(events)"
+            [eventTemplate]="customEventTemplate"
           >
           </mwl-calendar-day-view>
         </div>
     </div>
-
-
-    <!-- <mat-card>
-        <mat-card-title>
-            {{event.title}}
-        </mat-card-title>
-        <mat-card-subtitle>
-            {{event.description}}
-        </mat-card-subtitle>
-    </mat-card> -->
 </div>

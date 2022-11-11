@@ -20,7 +20,7 @@ export class CalendarManager {
         return res
     }
 
-    async get24hEvents(): Promise<CalEvent[]> {
+    async getDayEvents(): Promise<CalEvent[]> {
         this.debug.log('Getting next 24h events...')
 
         var res: CalEvent[] = []
@@ -28,6 +28,7 @@ export class CalendarManager {
         for (const agenda of this.agendas) {
             const calendar = await this.getCalendar(agenda.icalUrl)
             const today = new Date()
+            today.setHours(0,0,0,0)
             const events = this.getEventsInRange(calendar, today, new Date(today.getTime() + 60 * 60 * 24 * 1000), agenda)
             this.debug.log(`Found ${events.length} events for the next 24 hours for agenda ${agenda.name}`)
             res = res.concat(events)

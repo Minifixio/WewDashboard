@@ -28,7 +28,7 @@ export class CalendarComponentToday implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.todayEvents = this.apiService.get("calendar", "24hours")
+    this.todayEvents = this.apiService.get("calendar", "day")
   }
 
   ngAfterViewInit(): void {
@@ -51,4 +51,8 @@ export class CalendarComponentToday implements OnInit {
     return res
   }
 
+  logUnknownObjectFromView(obj: any) {
+    console.log(obj)
+    return null
+  }
 }

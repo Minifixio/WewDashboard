@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DayEvents } from 'src/app/models/Calendar';
 import { ApiService } from 'src/app/services/api.service';
 import { CalendarService } from 'src/app/services/calendar.service';
@@ -15,6 +15,11 @@ export class CalendarThreedaysComponent implements OnInit {
   dayStartHour: number = 7
   today = new Date()
 
+  hourSegmentHeight: number = 0
+  hourSegments = 1
+  customDayView="customDayView"
+  @ViewChild('calendarThreeDaysDiv') calendarThreeDaysDiv: ElementRef | undefined;
+
   constructor(
     private apiService: ApiService,
     public calendarService: CalendarService
@@ -25,6 +30,16 @@ export class CalendarThreedaysComponent implements OnInit {
     this.apiService.get<DayEvents[]>("calendar", "3days").then((res) => {
       console.log(res)
     })
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.hourSegmentHeight = (this.calendarThreeDaysDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-1
+    }, 0)
+  }
+
+  onResize(event: any) {
+    this.hourSegmentHeight = (this.calendarThreeDaysDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-1
   }
 
   returnDateFormat(dateStr: string): Date {

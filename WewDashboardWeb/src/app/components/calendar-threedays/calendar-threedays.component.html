@@ -1,8 +1,26 @@
+<ng-template #customEventTemplate let-weekEvent="weekEvent" let-locale="locale">
+  <div class="event-template-div">
+    <div class="event-template-title-div">
+      {{weekEvent.event.title}}
+    </div>
+    <div class="event-tempalte-hour-div">
+
+        <p class="event-template-hour-text-div" id="event-template-hour-text-div-start">
+          {{weekEvent.event.start | date:'h:mm'}}
+        </p>
+        <p class="event-template-hour-text-div" id="event-template-hour-text-div-end">
+          {{weekEvent.event.end | date:'h:mm'}}
+        </p>
+
+    </div>
+  </div>
+</ng-template>
+
 <div #calendarThreeDaysDiv id="calendarThreeDaysDiv">
     <div id="calendars-div"  >
         <div class="day-calendar-div" *ngFor="let dayEvent of threeDaysEvents | async">
             <div *ngIf="hourSegmentHeight > 0">
-                <mwl-calendar-day-view 
+                <mwl-calendar-day-view
                 [viewDate]="returnDateFormat(dayEvent.day)"
                 [dayStartHour]="dayStartHour"
                 [dayEndHour]="dayEndHour"
@@ -10,6 +28,7 @@
                 [events]="this.calendarService.toCalendarEventArray(dayEvent.events)"
                 [hourSegments]="hourSegments"
                 [ngClass]="customDayView"
+                [eventTemplate]="customEventTemplate"
               >
               
                 <!-- [eventTemplate]="customEventTemplate" -->

@@ -11,8 +11,8 @@ import { CalendarService } from 'src/app/services/calendar.service';
 export class CalendarThreedaysComponent implements OnInit {
 
   threeDaysEvents = {} as Promise<DayEvents[]>
-  dayEndHour: number = 23
-  dayStartHour: number = 7
+  dayEndHour: number = 21
+  dayStartHour: number = 8
   today = new Date()
 
   hourSegmentHeight: number = 0
@@ -27,15 +27,41 @@ export class CalendarThreedaysComponent implements OnInit {
 
   ngOnInit(): void {
     this.threeDaysEvents = this.apiService.get<DayEvents[]>("calendar", "3days")
-    this.apiService.get<DayEvents[]>("calendar", "3days").then((res) => {
-      console.log(res)
-    })
+
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.hourSegmentHeight = (this.calendarThreeDaysDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-1
     }, 0)
+  }
+
+  async getDayStartHour() {
+    let days = await this.threeDaysEvents;
+    let dayStartHour = 24
+    days.forEach(day => {
+      day.events.forEach(event => {
+        const eventStartHour = new Date(event.start).getHours()
+        if(eventStartHour < dayStartHour) {
+          dayStartHour = eventStartHour
+        }
+      })
+    })
+    this.dayStartHour = dayStartHour
+  }
+
+  async getDayEndHour() {
+    let days = await this.threeDaysEvents;
+    let dayEndHour = 0
+    days.forEach(day => {
+      day.events.forEach(event => {
+        const eventEndHour = new Date(event.end).getHours()
+        if(eventEndHour > dayEndHour) {
+          dayEndHour = eventEndHour
+        }
+      })
+    })
+    this.dayEndHour = dayEndHour
   }
 
   onResize(event: any) {

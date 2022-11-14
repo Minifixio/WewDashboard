@@ -1,13 +1,24 @@
 <ng-template #customEventTemplate let-weekEvent="weekEvent" let-locale="locale">
     <div class="event-template-div">
-        {{weekEvent.event.title}}
-        {{weekEvent.event.meta? weekEvent.event.meta : ""}}
-    </div>
+        <div class="event-template-title-div">
+          {{weekEvent.event.title}}
+        </div>
+        <div class="event-tempalte-hour-div">
+    
+            <p class="event-template-hour-text-div" id="event-template-hour-text-div-start">
+              {{weekEvent.event.start | date:'h:mm'}}
+            </p>
+            <p class="event-template-hour-text-div" id="event-template-hour-text-div-end">
+              {{weekEvent.event.end | date:'H:mm'}}
+            </p>
+    
+        </div>
+      </div>
 </ng-template>
 
 <div (window:resize)="onResize($event)" id="calendarDiv" #calendarDiv >
     
-    <div *ngIf="hourSegmentHeight > 0">
+    <div id="calendar-container-div" *ngIf="hourSegmentHeight > 0">
         <div  *ngIf="todayEvents | async; let events">
             <mwl-calendar-day-view 
             [viewDate]="viewDate"

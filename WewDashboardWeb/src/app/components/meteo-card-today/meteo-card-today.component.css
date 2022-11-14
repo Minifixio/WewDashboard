@@ -47,18 +47,28 @@
 }
 
 .weather-icon {
-    width: 20%;
+    width: 15%;
+}
+
+#main-weather-icon {
+    width: 30%;
+    margin-top: -10px;
+    margin-bottom: -10px;
 }
 
 .tile-content{
     display: flex;
     align-items: center;
     justify-content: start;
+    width: 100%;
+    margin-left: 10px;
 }
 
-.tile-content > div{
+.tile-content > div {
     display: flex;
     align-items: center;
+    width: 100%;
+    justify-content: space-between;
 }
 
 .tile-content > div > p{
@@ -70,8 +80,7 @@
 }
 
 .temp-p {
-    position: absolute;
-    right: 0;
+    padding-left: 10px;
     font-size: small;
 }
 
@@ -83,12 +92,12 @@
 .rain-icon {
     filter: invert(100%) sepia(9%) saturate(7500%) hue-rotate(173deg) brightness(114%) contrast(95%);
     width: 30%;
-    height: 30%;
 }
 
 .rain-infos-div {
     display: flex;
     align-items: center;
+    justify-content: end;
 }
 
 .forecast-main-p {
@@ -96,5 +105,16 @@
 }
 
 .other-infos-div > p {
+    margin: 0;
+}
+
+.forecast-main-rain-prob-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.forecast-main-rain-prob-div > p {
     margin: 0;
 }

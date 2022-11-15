@@ -53,9 +53,9 @@ class CalendarManager {
             const today = new Date((new Date()).setHours(0, 0, 0, 0));
             for (const agenda of this.agendas) {
                 const calendar = yield this.getCalendar(agenda.icalUrl);
-                const eventDay1 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 0)), new Date((new Date()).setDate(today.getDate() + 1)), agenda);
-                const eventDay2 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 1)), new Date((new Date()).setDate(today.getDate() + 2)), agenda);
-                const eventDay3 = yield this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 2)), new Date((new Date()).setDate(today.getDate() + 3)), agenda);
+                const eventDay1 = yield this.getEventsInRange(calendar, new Date(new Date(new Date().setDate(today.getDate() + 1)).setHours(0, 0, 0, 0)), new Date(new Date(new Date().setDate(today.getDate() + 2)).setHours(0, 0, 0, 0)), agenda);
+                const eventDay2 = yield this.getEventsInRange(calendar, new Date(new Date(new Date().setDate(today.getDate() + 2)).setHours(0, 0, 0, 0)), new Date(new Date(new Date().setDate(today.getDate() + 3)).setHours(0, 0, 0, 0)), agenda);
+                const eventDay3 = yield this.getEventsInRange(calendar, new Date(new Date(new Date().setDate(today.getDate() + 3)).setHours(0, 0, 0, 0)), new Date(new Date(new Date().setDate(today.getDate() + 4)).setHours(0, 0, 0, 0)), agenda);
                 day1Events = day1Events.concat(eventDay1);
                 day2Events = day2Events.concat(eventDay2);
                 day3Events = day3Events.concat(eventDay3);
@@ -71,6 +71,7 @@ class CalendarManager {
                 events: day3Events
             });
             this.debug.log(`Found ${day1Events.length + day2Events.length + day3Events.length} events for the next 3 days`);
+            this.debug.log(`Events count : ${day1Events.length} for day1, ${day2Events.length}for day2, ${day3Events.length} for day3`);
             return res;
         });
     }
@@ -89,7 +90,7 @@ class CalendarManager {
         for (const key in calResponse) {
             const event = calResponse[key];
             if (event.type == "VEVENT") {
-                if (event.end.getTime() > start.getTime() && event.end.getTime() < end.getTime()) {
+                if (event.start.getTime() > start.getTime() && event.start.getTime() < end.getTime()) {
                     res.push(this.veventToCalEvent(event, agenda));
                 }
             }

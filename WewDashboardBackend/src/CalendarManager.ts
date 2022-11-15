@@ -52,9 +52,9 @@ export class CalendarManager {
         for (const agenda of this.agendas) {
             const calendar = await this.getCalendar(agenda.icalUrl)
 
-            const eventDay1 = await this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 0)), new Date((new Date()).setDate(today.getDate() + 1)), agenda)
-            const eventDay2 = await this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 1)), new Date((new Date()).setDate(today.getDate() + 2)), agenda)
-            const eventDay3 = await this.getEventsInRange(calendar, new Date((new Date()).setDate(today.getDate() + 2)), new Date((new Date()).setDate(today.getDate() + 3)), agenda)
+            const eventDay1 = await this.getEventsInRange(calendar, new Date(new Date(new Date().setDate(today.getDate() + 1)).setHours(0,0,0,0)), new Date(new Date(new Date().setDate(today.getDate() + 2)).setHours(0,0,0,0)), agenda)
+            const eventDay2 = await this.getEventsInRange(calendar, new Date(new Date(new Date().setDate(today.getDate() + 2)).setHours(0,0,0,0)), new Date(new Date(new Date().setDate(today.getDate() + 3)).setHours(0,0,0,0)), agenda)
+            const eventDay3 = await this.getEventsInRange(calendar, new Date(new Date(new Date().setDate(today.getDate() + 3)).setHours(0,0,0,0)), new Date(new Date(new Date().setDate(today.getDate() + 4)).setHours(0,0,0,0)), agenda)
             day1Events = day1Events.concat(eventDay1)
             day2Events = day2Events.concat(eventDay2)
             day3Events = day3Events.concat(eventDay3)
@@ -77,6 +77,7 @@ export class CalendarManager {
         )
 
         this.debug.log(`Found ${day1Events.length + day2Events.length + day3Events.length} events for the next 3 days`)
+        this.debug.log(`Events count : ${day1Events.length} for day1, ${day2Events.length}for day2, ${day3Events.length} for day3`)
 
         return res
     }
@@ -98,7 +99,7 @@ export class CalendarManager {
         for (const key in calResponse) {
             const event: ical.CalendarComponent = calResponse[key]
             if (event.type == "VEVENT") {
-                if (event.end.getTime() > start.getTime() && event.end.getTime() < end.getTime()) {
+                if (event.start.getTime() > start.getTime() && event.start.getTime() < end.getTime()) {
                     res.push(this.veventToCalEvent(event, agenda))
                 }
             }

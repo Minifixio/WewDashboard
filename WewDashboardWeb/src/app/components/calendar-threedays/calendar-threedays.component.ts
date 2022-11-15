@@ -27,13 +27,19 @@ export class CalendarThreedaysComponent implements OnInit {
 
   ngOnInit(): void {
     this.threeDaysEvents = this.apiService.get<DayEvents[]>("calendar", "3days")
-
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.hourSegmentHeight = (this.calendarThreeDaysDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-1
     }, 0)
+  }
+
+  async logEvents(daysPromise: Promise<DayEvents[]> ) {
+    let days = await daysPromise
+    for(let day of days) {
+      console.log(day)
+    }
   }
 
   async getDayStartHour() {

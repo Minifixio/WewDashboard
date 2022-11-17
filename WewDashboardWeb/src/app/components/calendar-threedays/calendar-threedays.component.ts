@@ -26,6 +26,7 @@ export class CalendarThreedaysComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('meteo 3 days init')
     this.threeDaysEvents = this.apiService.get<DayEvents[]>("calendar", "3days")
   }
 

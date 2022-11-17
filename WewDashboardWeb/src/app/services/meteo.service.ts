@@ -2,15 +2,18 @@ import { Injectable } from '@angular/core';
 import { CityData, DayForecast, DayForecastJSON, WeekForecast, WeekForecastJSON } from '../models/Meteo';
 import { ErrorsService } from './errors.service';
 import { HttpService } from './http.service';
+import { Logger } from './logger';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeteoService {
 
+  logger = new Logger('meteo-service')
+
   constructor (
     private httpService: HttpService,
-    private errorsService: ErrorsService
+    private errorsService: ErrorsService,
   ) { }
   
 
@@ -85,6 +88,7 @@ export class MeteoService {
   }
 
   async getCurrentForecast(lon: number, lat: number): Promise<DayForecast | null> {
+    this.logger.log('getting current forecast')
     return this.httpService.getOpenWeatherMap<DayForecastJSON>(
       'data',
       '2.5',
@@ -99,6 +103,7 @@ export class MeteoService {
   }
 
   async getFiveDaysForecast(lon: number, lat: number): Promise<WeekForecast | null> {
+    this.logger.log('getting five days forecast')
     return this.httpService.getOpenWeatherMap<WeekForecastJSON>(
       'data',
       '2.5',

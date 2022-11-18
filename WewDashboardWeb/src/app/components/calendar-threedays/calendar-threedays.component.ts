@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DayEvents } from 'src/app/models/Calendar';
 import { ApiService } from 'src/app/services/api.service';
 import { CalendarService } from 'src/app/services/calendar.service';
+import { Logger } from 'src/app/services/logger';
 
 @Component({
   selector: 'app-calendar-threedays',
@@ -14,6 +15,7 @@ export class CalendarThreedaysComponent implements OnInit {
   dayEndHour: number = 21
   dayStartHour: number = 8
   today = new Date()
+  logger = new Logger("calendar-threedays-component")
 
   hourSegmentHeight: number = 0
   hourSegments = 1
@@ -26,13 +28,13 @@ export class CalendarThreedaysComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('meteo 3 days init')
+    this.logger.log('meteo 3 days init')
     this.threeDaysEvents = this.apiService.get<DayEvents[]>("calendar", "3days")
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.hourSegmentHeight = (this.calendarThreeDaysDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-1
+      this.hourSegmentHeight = (this.calendarThreeDaysDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-2
     }, 0)
   }
 
@@ -72,7 +74,7 @@ export class CalendarThreedaysComponent implements OnInit {
   }
 
   onResize(event: any) {
-    this.hourSegmentHeight = (this.calendarThreeDaysDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-1
+    this.hourSegmentHeight = (this.calendarThreeDaysDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-2
   }
 
   returnDateFormat(dateStr: string): Date {

@@ -19,7 +19,10 @@
 <div #calendarThreeDaysDiv id="calendarThreeDaysDiv">
     <div id="calendars-div"  >
         <div class="day-calendar-div" *ngFor="let dayEvent of threeDaysEvents | async">
-            <div *ngIf="hourSegmentHeight > 0">
+          <div class="day-div">
+            {{dayEvent.day | date:'EEEE, d'}}  
+          </div>
+          <div *ngIf="hourSegmentHeight > 0">
                 <mwl-calendar-day-view
                 [viewDate]="returnDateFormat(dayEvent.day)"
                 [dayStartHour]="dayStartHour"

@@ -1,8 +1,11 @@
 import ical from 'node-ical'
 import { DebugManager } from './DebugManager';
 import { Agenda } from './models/Agenda';
+import { AgendasConfig } from './models/AgendasConfig';
 import { CalEvent } from './models/CalEvent';
 import { DayEvents } from './models/DayEvents';
+import { TodoTask } from './models/TodoTask';
+const agendasConfig: AgendasConfig = require('./agendas/agendas-config.json');
 
 
 export class CalendarManager {
@@ -82,6 +85,21 @@ export class CalendarManager {
         return res
     }
 
+    async getTodoTasks(): Promise<TodoTask[]> {
+        this.debug.log('Getting Todo tasks...')
+
+        var res: TodoTask[] = []
+
+        for (const agenda of this.agendas) {
+            const calendar = await this.getCalendar(agenda.icalUrl)
+            const tasks = this.getTodoEvents(calendar, agenda)
+            this.debug.log(`Found ${tasks.length} tasks for agenda ${agenda.name}`)
+            res = res.concat(tasks)
+        }
+
+        return res
+    }
+
     veventToCalEvent(vevent: ical.VEvent, agenda: Agenda): CalEvent {
         var calEvent = {} as CalEvent
         calEvent.title = vevent.summary
@@ -92,7 +110,28 @@ export class CalendarManager {
         calEvent.agenda = agenda
         return calEvent
     }
+
+    veventToTodoTask(vevent: ical.VEvent, agenda: Agenda): TodoTask {
+        var todoTask = {} as TodoTask
+        todoTask.agenda = agenda
+        todoTask.date = vevent.start
+        todoTask.title = vevent.summary
+        return todoTask
+    }
     
+    getTodoEvents(calResponse: ical.CalendarResponse, agenda: Agenda): TodoTask[] {
+        var res: TodoTask[] = []
+    
+        for (const key in calResponse) {
+            const event: ical.CalendarComponent = calResponse[key]
+            if (event.type == "VEVENT" && event.summary.includes(agendasConfig.tasks_word)) {
+                res.push(this.veventToTodoTask(event, agenda))
+            }
+        }
+        
+        return res
+    }
+
     getEventsInRange(calResponse: ical.CalendarResponse, start: Date, end: Date, agenda: Agenda): CalEvent[] {
         var res: CalEvent[] = []
     

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CalendarManager = void 0;
 const node_ical_1 = __importDefault(require("node-ical"));
 const DebugManager_1 = require("./DebugManager");
+const agendasConfig = require('./agendas/agendas-config.json');
 class CalendarManager {
     constructor(agendas) {
         this.agendas = {};
@@ -75,6 +76,19 @@ class CalendarManager {
             return res;
         });
     }
+    getTodoTasks() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.debug.log('Getting Todo tasks...');
+            var res = [];
+            for (const agenda of this.agendas) {
+                const calendar = yield this.getCalendar(agenda.icalUrl);
+                const tasks = this.getTodoEvents(calendar, agenda);
+                this.debug.log(`Found ${tasks.length} tasks for agenda ${agenda.name}`);
+                res = res.concat(tasks);
+            }
+            return res;
+        });
+    }
     veventToCalEvent(vevent, agenda) {
         var calEvent = {};
         calEvent.title = vevent.summary;
@@ -84,6 +98,23 @@ class CalendarManager {
         calEvent.end = vevent.end;
         calEvent.agenda = agenda;
         return calEvent;
+    }
+    veventToTodoTask(vevent, agenda) {
+        var todoTask = {};
+        todoTask.agenda = agenda;
+        todoTask.date = vevent.start;
+        todoTask.title = vevent.summary;
+        return todoTask;
+    }
+    getTodoEvents(calResponse, agenda) {
+        var res = [];
+        for (const key in calResponse) {
+            const event = calResponse[key];
+            if (event.type == "VEVENT" && event.summary.includes(agendasConfig.tasks_word)) {
+                res.push(this.veventToTodoTask(event, agenda));
+            }
+        }
+        return res;
     }
     getEventsInRange(calResponse, start, end, agenda) {
         var res = [];

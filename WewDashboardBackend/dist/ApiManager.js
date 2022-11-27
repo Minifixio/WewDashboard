@@ -40,6 +40,10 @@ class API {
             const data = yield this.calendarManager.get3daysEvents();
             res.send(JSON.stringify(data));
         }));
+        this.app.get('/calendar/tasks', (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const data = yield this.calendarManager.getTodoTasks();
+            res.send(JSON.stringify(data));
+        }));
         this.app.listen(this.port, () => {
             this.debug.log(`Backend running at https://localhost:${this.port}`);
         });

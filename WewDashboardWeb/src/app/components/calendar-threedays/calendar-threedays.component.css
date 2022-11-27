@@ -36,6 +36,7 @@
     line-height: normal;
     margin: 1px;
     font-size: 1vw;
+    overflow: hidden;
 }
 
 .event-template-hour-text-div {

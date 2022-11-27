@@ -20,7 +20,7 @@ export class CalendarManager {
 
     async getCalendar(url: string): Promise<ical.CalendarResponse> {
         var res: ical.CalendarResponse = await ical.async.fromURL(url)
-        return res
+        return res    
     }
 
     async getDayEvents(): Promise<CalEvent[]> {
@@ -100,7 +100,7 @@ export class CalendarManager {
         return res
     }
 
-    veventToCalEvent(vevent: ical.VEvent, agenda: Agenda): CalEvent {
+    private veventToCalEvent(vevent: ical.VEvent, agenda: Agenda): CalEvent {
         var calEvent = {} as CalEvent
         calEvent.title = vevent.summary
         calEvent.description = vevent.description
@@ -111,7 +111,7 @@ export class CalendarManager {
         return calEvent
     }
 
-    veventToTodoTask(vevent: ical.VEvent, agenda: Agenda): TodoTask {
+    private veventToTodoTask(vevent: ical.VEvent, agenda: Agenda): TodoTask {
         var todoTask = {} as TodoTask
         todoTask.agenda = agenda
         todoTask.date = vevent.start
@@ -119,7 +119,7 @@ export class CalendarManager {
         return todoTask
     }
     
-    getTodoEvents(calResponse: ical.CalendarResponse, agenda: Agenda): TodoTask[] {
+    private getTodoEvents(calResponse: ical.CalendarResponse, agenda: Agenda): TodoTask[] {
         var res: TodoTask[] = []
     
         for (const key in calResponse) {
@@ -132,7 +132,7 @@ export class CalendarManager {
         return res
     }
 
-    getEventsInRange(calResponse: ical.CalendarResponse, start: Date, end: Date, agenda: Agenda): CalEvent[] {
+    private getEventsInRange(calResponse: ical.CalendarResponse, start: Date, end: Date, agenda: Agenda): CalEvent[] {
         var res: CalEvent[] = []
     
         for (const key in calResponse) {

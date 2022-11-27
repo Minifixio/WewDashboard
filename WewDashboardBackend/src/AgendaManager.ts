@@ -21,9 +21,11 @@ export class AgendaManager {
         const calConfigs = await fsPromises.readdir(this.agendasPath)
 
         for (const configFile of calConfigs) {
-            const content: AgendaConfig = JSON.parse(await fsPromises.readFile(`${this.agendasPath}/${configFile}`, 'utf8'))
-            const agenda: Agenda = {name: content.name, icalUrl: content.icalUrl}
-            agendas.push(agenda)
+            if (configFile.includes('cal')) {
+                const content: AgendaConfig = JSON.parse(await fsPromises.readFile(`${this.agendasPath}/${configFile}`, 'utf8'))
+                const agenda: Agenda = {name: content.name, icalUrl: content.icalUrl}
+                agendas.push(agenda)
+            }
         }
         this.debug.log(`Found ${agendas.length} agendas : \n${agendas.map((curr, ind) => {return (`-agenda n°${ind + 1} : ${curr.name}`)}).join('\n') } \n`)
 

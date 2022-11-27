@@ -47,9 +47,11 @@ class AgendaManager {
             var agendas = [];
             const calConfigs = yield fs_1.promises.readdir(this.agendasPath);
             for (const configFile of calConfigs) {
-                const content = JSON.parse(yield fs_1.promises.readFile(`${this.agendasPath}/${configFile}`, 'utf8'));
-                const agenda = { name: content.name, icalUrl: content.icalUrl };
-                agendas.push(agenda);
+                if (configFile.includes('cal')) {
+                    const content = JSON.parse(yield fs_1.promises.readFile(`${this.agendasPath}/${configFile}`, 'utf8'));
+                    const agenda = { name: content.name, icalUrl: content.icalUrl };
+                    agendas.push(agenda);
+                }
             }
             this.debug.log(`Found ${agendas.length} agendas : \n${agendas.map((curr, ind) => { return (`-agenda n°${ind + 1} : ${curr.name}`); }).join('\n')} \n`);
             return agendas;

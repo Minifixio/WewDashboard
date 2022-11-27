@@ -115,7 +115,7 @@ export class CalendarManager {
         var todoTask = {} as TodoTask
         todoTask.agenda = agenda
         todoTask.date = vevent.start
-        todoTask.title = vevent.summary
+        todoTask.title = vevent.summary.replace(agendasConfig.tasks_word, "")
         return todoTask
     }
     
@@ -124,7 +124,7 @@ export class CalendarManager {
     
         for (const key in calResponse) {
             const event: ical.CalendarComponent = calResponse[key]
-            if (event.type == "VEVENT" && event.summary.includes(agendasConfig.tasks_word)) {
+            if (event.type == "VEVENT" && event.summary.includes(agendasConfig.tasks_word) && event.start.getTime() >= new Date().getTime()) {
                 res.push(this.veventToTodoTask(event, agenda))
             }
         }

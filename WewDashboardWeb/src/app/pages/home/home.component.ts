@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalendarThreedaysComponent } from 'src/app/components/calendar-threedays/calendar-threedays.component';
 import { CalendarTodayComponent } from 'src/app/components/calendar-today/calendar-today.component';
 import { MeteoComponent } from 'src/app/components/meteo/meteo.component';
+import { TasksComponent } from 'src/app/components/tasks/tasks.component';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,9 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('calendarThreeDays', {static: true})
   calendarThreeDays!: CalendarThreedaysComponent
+
+  @ViewChild('todoTasks', {static: true})
+  todoTasks!: TasksComponent
   
   constructor() { }
 

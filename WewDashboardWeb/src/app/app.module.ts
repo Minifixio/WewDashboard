@@ -21,6 +21,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarThreedaysComponent } from './components/calendar-threedays/calendar-threedays.component';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { CalendarThreedaysComponent } from './components/calendar-threedays/cale
     MeteoComponent,
     MeteoCardComponent,
     MeteoCardTodayComponent,
-    CalendarThreedaysComponent
+    CalendarThreedaysComponent,
+    TasksComponent
   ],
   imports: [
     AppRoutingModule,

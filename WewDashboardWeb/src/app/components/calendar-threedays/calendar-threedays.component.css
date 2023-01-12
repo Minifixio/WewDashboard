@@ -52,7 +52,8 @@
     width: fit-content;
     margin: 0;
     font-size: medium;
-    font-weight: 300;
+    font-weight: 600;
+    margin-left: 5px;
 }
 
 #event-template-hour-text-div-start {
@@ -68,6 +69,9 @@
 .day-div {
     text-align: center;
     padding-top: 10px;
+    font-size: large;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .cal-hour-segment {

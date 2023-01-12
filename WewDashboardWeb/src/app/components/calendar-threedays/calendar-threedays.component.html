@@ -6,7 +6,7 @@
     <div class="event-tempalte-hour-div">
 
         <p class="event-template-hour-text-div" id="event-template-hour-text-div-start">
-          {{weekEvent.event.start | date:'h:mm'}}
+          {{weekEvent.event.start | date:'H:mm'}}
         </p>
         <p class="event-template-hour-text-div" id="event-template-hour-text-div-end">
           {{weekEvent.event.end | date:'H:mm'}}
@@ -23,7 +23,7 @@
     [class.cal-after-hour-start]="!segment.isStart"
     [ngClass]="segment.cssClass">
     <span class="cal-time">
-      {{ segment.date | date:'h:mm'}}
+      {{ segment.date | date:'H:mm'}}
     </span>
   </div>
 </ng-template>
@@ -46,9 +46,6 @@
                 [eventTemplate]="customEventTemplate"
                 [hourSegmentTemplate]="hourSegmentTemplate"
               >
-              
-                <!-- [eventTemplate]="customEventTemplate" -->
-                <!-- [hourSegmentHeight]="hourSegmentHeight" -->
 
               </mwl-calendar-day-view>
             </div>

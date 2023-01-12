@@ -8,6 +8,7 @@
     padding-top: 1px;
     padding-bottom: 1px;
     background: #42424254;
+    height: 99%;
 }
 
 .weather-icon {
@@ -18,11 +19,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: -4%
 }
 
 .main-infos-div {
     display: flex;
     justify-content: space-around;
+}
+
+#primaryInfosDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    margin-right: 4%;
 }
 
 .main-infos-div > p {
@@ -33,7 +43,7 @@
 
 #rain-icon {
     filter: invert(100%) sepia(9%) saturate(7500%) hue-rotate(173deg) brightness(114%) contrast(95%);
-    width: 30%;
+    width: 20%;
 }
 
 #rain-p {
@@ -47,11 +57,11 @@
 }
 
 .weather-icon {
-    width: 15%;
+    width: 9%;
 }
 
 #main-weather-icon {
-    width: 30%;
+    width: 70%;
     margin-top: -10px;
     margin-bottom: -10px;
 }

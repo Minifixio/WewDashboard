@@ -4,20 +4,22 @@
             <div id="icon-div">
                 <img id="main-weather-icon" [src]="currentWeather ? getWeatherIconURL(currentWeather.icon) : '/assets/icons/loading1.png'">
             </div>
-            <div class="main-infos-div">
-                <p>{{currentWeather ? (currentWeather.temp | number : '1.0-0') : '---' }}°C</p>
-        
+            <div class="infos-div">
+                <div class="main-infos-div">
+                    <p>{{currentWeather ? (currentWeather.temp | number : '1.0-0') : '---' }}°C</p>
+                </div>
+                <div class="other-infos-div">
+                    <p>{{currentWeather ? currentWeather.description : "---"}}</p>
+                    <p *ngIf="currentWeather?.rain?.last_hour" id="rain-p">
+                        <img id="rain-icon" src="/assets/icons/rainy.svg">
+                        {{currentWeather?.rain?.last_hour}}
+                    </p>
             </div>
-            <div class="other-infos-div">
-                <p>{{currentWeather ? currentWeather.description : "---"}}</p>
-                <p *ngIf="currentWeather?.rain?.last_hour" id="rain-p">
-                    <img id="rain-icon" src="/assets/icons/rainy.svg">
-                    {{currentWeather?.rain?.last_hour}}
-                </p>
+
             </div>
         </div>
         <mat-divider></mat-divider>
-        <mat-grid-list [rowHeight]="nextForecast.length ? (((todayCardDiv.offsetHeight - primaryInfosDiv.offsetHeight) / nextForecast.length) - 2 ) : 1" cols="1" *ngIf='nextForecast'>
+        <mat-grid-list [rowHeight]="nextForecast.length ? (((todayCardDiv.offsetHeight - primaryInfosDiv.offsetHeight) / nextForecast.length)) : 1" cols="1" *ngIf='nextForecast'>
             <mat-grid-tile  *ngFor="let forecast of arrayFromArrayOfObject(nextForecast)" rowspan="1">
                 <div class="tile-content">
                     <b class="hour-b">{{forecast.date_unix * 1000 | date:'HH:mm' }}</b> 

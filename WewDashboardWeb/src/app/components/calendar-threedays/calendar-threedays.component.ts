@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { DayEvents } from 'src/app/models/Calendar';
 import { ApiService } from 'src/app/services/api.service';
 import { CalendarService } from 'src/app/services/calendar.service';
@@ -21,6 +21,7 @@ export class CalendarThreedaysComponent implements OnInit {
   hourSegments = 1
   customDayView="customDayView"
   @ViewChild('calendarThreeDaysDiv') calendarThreeDaysDiv: ElementRef | undefined;
+  @ViewChildren('calendarDayViewDiv') calendarDayViewDiv: QueryList<ElementRef> | undefined;
 
   constructor(
     private apiService: ApiService,
@@ -30,6 +31,7 @@ export class CalendarThreedaysComponent implements OnInit {
   ngOnInit(): void {
     this.logger.log('meteo 3 days init')
     this.threeDaysEvents = this.apiService.get<DayEvents[]>("calendar", "3days")
+    this.apiService.get<DayEvents[]>("calendar", "3days").then(() => this.changeCalendarBackground())
   }
 
   ngAfterViewInit(): void {
@@ -37,6 +39,17 @@ export class CalendarThreedaysComponent implements OnInit {
       this.hourSegmentHeight = (this.calendarThreeDaysDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-2
     }, 0)
   }
+
+  changeCalendarBackground() {
+    this.calendarDayViewDiv?.toArray().forEach(el => {
+      el.nativeElement.firstChild.firstChild.firstChild.style.backgroundColor = 'transparent'
+      el.nativeElement.firstChild.firstChild.firstChild.style.borderColor = 'transparent'
+      el.nativeElement.firstChild.firstChild.firstChild.children[1].style.borderColor = 'transparent'
+      const hourSegments = el.nativeElement.firstChild.firstChild.firstChild.children[1].children[0].children[0].children
+      Array.prototype.forEach.call(hourSegments, e => e.style.backgroundColor = 'transparent')
+    })
+  }
+
 
   async logEvents(daysPromise: Promise<DayEvents[]> ) {
     let days = await daysPromise

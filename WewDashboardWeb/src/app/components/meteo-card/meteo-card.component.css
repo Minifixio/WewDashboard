@@ -21,7 +21,9 @@
 .tile-content{
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: right;
+    position: absolute;
+    left: 0;
 }
 
 .tile-content > div{

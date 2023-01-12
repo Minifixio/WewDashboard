@@ -13,17 +13,15 @@
                     <div>
                         
                         <img class="weather-icon" [src]="getWeatherIconURL(forecast.icon)">
-                        <!-- <p>{{forecast.main}}</p>  -->
-                        <p class="temp-p">{{forecast.temp | number : '1.0-0'}}°C</p>
                         
                         <div *ngIf="forecast.rain_prob" class="rain-infos-div">
                             {{forecast.rain_prob * 100 | number : '1.0-0'}}%
-                            <!-- <img class="rain-icon" src="/assets/icons/rainy.svg"> -->
 
                         </div>
                         
                     </div>
                 </div>
+                <p class="temp-p">{{forecast.temp | number : '1.0-0'}}°C</p>
             </mat-grid-tile>
           </mat-grid-list>
     </mat-card>

@@ -24,6 +24,7 @@
     justify-content: right;
     position: absolute;
     left: 0;
+    height: 100%;
 }
 
 .tile-content > div{
@@ -65,8 +66,10 @@
     position: absolute;
     right: 0;
     font-size: larger;
+    margin: 0;
 }
 
 .hour-b {
     padding-right: 5px;
 }
+

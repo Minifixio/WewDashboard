@@ -41,6 +41,7 @@ export class CalendarThreedaysComponent implements OnInit {
   }
 
   changeCalendarBackground() {
+    // Trying to edit calendar CSS the hard way
     this.calendarDayViewDiv?.toArray().forEach(el => {
       el.nativeElement.firstChild.firstChild.firstChild.style.backgroundColor = 'transparent'
       el.nativeElement.firstChild.firstChild.firstChild.style.borderColor = 'transparent'

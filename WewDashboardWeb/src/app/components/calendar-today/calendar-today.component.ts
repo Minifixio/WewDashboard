@@ -33,12 +33,12 @@ export class CalendarTodayComponent implements OnInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.hourSegmentHeight = (this.calendarDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)*2))-0.5
+      this.hourSegmentHeight = (this.calendarDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-3
     }, 0)
   }
 
   onResize(event: any) {
-    this.hourSegmentHeight = (this.calendarDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)*2))-0.5
+    this.hourSegmentHeight = (this.calendarDiv?.nativeElement.offsetHeight / ((this.dayEndHour - this.dayStartHour + 1)))-3
   }
  
   logUnknownObjectFromView(obj: any) {

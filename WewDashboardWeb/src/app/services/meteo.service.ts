@@ -3,19 +3,69 @@ import { CityData, DayForecast, DayForecastJSON, WeekForecast, WeekForecastJSON 
 import { ErrorsService } from './errors.service';
 import { HttpService } from './http.service';
 import { Logger } from './logger';
+import { BehaviorSubject, interval } from 'rxjs';
+import { myLat, myLon } from 'src/app/credentials';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeteoService {
 
-  logger = new Logger('meteo-service')
+  private logger = new Logger('meteo-service')
+
+  // 2 hours interval to get daily forecast
+  private dailyForecastInterval = interval(1000*60*60*2)
+
+  // 12 hours interval to get daily forecast
+  private fiveDaysForecastInterval = interval(1000*60*60*12)
+
+  public dailyForecastSubject!: BehaviorSubject<DayForecast | null>
+  public fiveDaysForecastSubject!: BehaviorSubject<WeekForecast | null>
 
   constructor (
     private httpService: HttpService,
     private errorsService: ErrorsService,
   ) { }
   
+  async initDailyForecastSubject(lon: number, lat: number) {
+    const forecast = await this.getCurrentForecast(lon, lat)
+    this.dailyForecastSubject = new BehaviorSubject(forecast)
+
+    this.dailyForecastInterval.subscribe(async () => {
+      const forecast = await this.getCurrentForecast(lon, lat)
+      this.dailyForecastSubject.next(forecast)
+    })
+    return this.dailyForecastSubject
+  }
+
+  async initFiveDaysForecastSubject(lon: number, lat: number) {
+    const forecast = await this.getFiveDaysForecast(lon, lat)
+    this.fiveDaysForecastSubject = new BehaviorSubject(forecast)
+    
+    this.fiveDaysForecastInterval.subscribe(async () => {
+      const forecast = await this.getFiveDaysForecast(lon, lat)
+      this.fiveDaysForecastSubject.next(forecast)
+    })
+    return this.fiveDaysForecastSubject
+  }
+
+  async getDailyForecastSubject(): Promise<BehaviorSubject<DayForecast | null>> {
+    if(!this.dailyForecastSubject) {
+      const res = await this.initDailyForecastSubject(myLon, myLat)
+      return res
+    } else {
+      return new Promise((resolve) => {resolve(this.dailyForecastSubject)})
+    }
+  }
+
+  async getFiveDaysForecastSubject(): Promise<BehaviorSubject<WeekForecast | null>> {
+    if(!this.fiveDaysForecastSubject) {
+      const res = await this.initFiveDaysForecastSubject(myLon, myLat)
+      return res
+    } else {
+      return new Promise((resolve) => {resolve(this.fiveDaysForecastSubject)})
+    }
+  }
 
   async formatDayForecast(json: DayForecastJSON , lon: number = 0, lat: number = 0) {
       var dayForecast = {} as DayForecast

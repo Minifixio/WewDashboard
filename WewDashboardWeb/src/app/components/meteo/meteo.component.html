@@ -1,11 +1,43 @@
 <div id="main-div">
-    <app-meteo-card-today [currentWeather]="currentForecast" [nextForecast]="nextForecast" id="card-1" class="meteo-card"></app-meteo-card-today>
-    <app-meteo-card [dayForecast]="fiveDaysForecast.day2" id="card-2" class="meteo-card"></app-meteo-card>
-    <app-meteo-card [dayForecast]="fiveDaysForecast.day3" id="card-3" class="meteo-card"></app-meteo-card>
-    <app-meteo-card [dayForecast]="fiveDaysForecast.day4" id="card-4" class="meteo-card"></app-meteo-card>
-    <app-meteo-card [dayForecast]="fiveDaysForecast.day5" id="card-5" class="meteo-card"></app-meteo-card>
+    <app-meteo-card-today 
+        [currentWeather]="currentForecast" 
+        [nextForecast]="nextForecast" 
+        id="card-1" 
+        class="meteo-card">
+    </app-meteo-card-today>
+    
+    <app-meteo-card 
+        [dayNumber]="2" 
+        [dayForecast]="fiveDaysForecast.day2" 
+        id="card-2" 
+        class="meteo-card">
+    </app-meteo-card>
+    <app-meteo-card 
+        [dayNumber]="3" 
+        [dayForecast]="fiveDaysForecast.day3" 
+        id="card-3" 
+        class="meteo-card">
+    </app-meteo-card>
+    <app-meteo-card 
+        [dayNumber]="4" 
+        [dayForecast]="fiveDaysForecast.day4" 
+        id="card-4" 
+        class="meteo-card">
+    </app-meteo-card>
+    <app-meteo-card 
+        [dayNumber]="5" 
+        [dayForecast]="fiveDaysForecast.day5" 
+        id="card-5" 
+        class="meteo-card">
+    </app-meteo-card>
     
     <!--Because the last day can be empty-->
-    <app-meteo-card *ngIf="fiveDaysForecast.day6 && fiveDaysForecast.day6.length > 0" [dayForecast]="fiveDaysForecast.day6" id="card-6" class="meteo-card"></app-meteo-card>
+    <app-meteo-card 
+        *ngIf="fiveDaysForecast.day6 && fiveDaysForecast.day6.length > 0" 
+        [dayNumber]="6"
+        [dayForecast]="fiveDaysForecast.day6" 
+        id="card-6" 
+        class="meteo-card">
+    </app-meteo-card>
 </div>
 

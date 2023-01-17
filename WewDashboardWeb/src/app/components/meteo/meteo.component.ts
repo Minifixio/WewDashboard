@@ -1,4 +1,5 @@
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { myLat, myLon } from 'src/app/credentials';
 import { DayForecast, WeekForecast } from 'src/app/models/Meteo';
 import { ErrorsService } from 'src/app/services/errors.service';
@@ -15,8 +16,11 @@ import { MeteoCardComponent } from '../meteo-card/meteo-card.component';
 export class MeteoComponent implements OnInit {
 
   currentForecast = {} as DayForecast;
+
   fiveDaysForecast = {} as WeekForecast;
+
   nextForecast = {} as DayForecast[]
+
   lon: number = myLon
   lat: number = myLat
 
@@ -31,15 +35,15 @@ export class MeteoComponent implements OnInit {
     private errorsService: ErrorsService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     console.log('meteo component init')
+    
     this.meteoService.getCurrentForecast(this.lon, this.lat).then((res) => {
       if (res==null) {
         this.errorsService.promptError('can\'t display current forecast in meteo component')
       } else {
         this.currentForecast = res 
       }
-      console.log(res)
     })
 
     this.meteoService.getFiveDaysForecast(this.lon, this.lat).then((res) => {
@@ -47,8 +51,9 @@ export class MeteoComponent implements OnInit {
         this.errorsService.promptError('can\'t display forecast in meteo component')
       } else {
         this.fiveDaysForecast = res 
-        console.log(this.fiveDaysForecast)
 
+        // Next forecast is the forecast for the current day since getCurrentForecast returns only information for the instant moment 
+        // but not for te following hours of the day
         if (this.fiveDaysForecast.day1.length < 5) {
           this.nextForecast = Array.from([...this.fiveDaysForecast.day1, ...this.fiveDaysForecast.day2.slice(0, 5-this.fiveDaysForecast.day1.length)])
         } else {
@@ -56,5 +61,7 @@ export class MeteoComponent implements OnInit {
         }
       }
     })
+
+
   }
 }

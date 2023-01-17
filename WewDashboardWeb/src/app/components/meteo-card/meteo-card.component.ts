@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatGridList } from '@angular/material/grid-list';
-import { DayForecast } from 'src/app/models/Meteo';
+import { Observable } from 'rxjs';
+import { DayForecast, WeekForecast } from 'src/app/models/Meteo';
 import { MeteoService } from 'src/app/services/meteo.service';
 
 @Component({
@@ -14,12 +15,20 @@ export class MeteoCardComponent implements OnInit {
   @ViewChild('cardDiv') cardDiv: ElementRef | undefined;
 
   @Input() dayForecast: DayForecast[] | undefined;
+  @Input() dayNumber!: number
 
   constructor(
     private meteoService: MeteoService
   ) { }
 
   ngOnInit(): void {
+    this.meteoService.getFiveDaysForecastSubject().then(res => {
+      res.asObservable().subscribe(forecast => {
+        type ObjectKey = keyof typeof forecast;
+        const key = `day${this.dayNumber}` as ObjectKey
+        this.dayForecast = forecast![key]
+      })
+    })
   }
 
   ngAfterViewInit(): void {

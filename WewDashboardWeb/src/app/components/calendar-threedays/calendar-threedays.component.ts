@@ -36,8 +36,6 @@ export class CalendarThreedaysComponent implements OnInit {
         setTimeout(() => this.changeCalendarBackground(), 0)
       })
     })
-    // this.threeDaysEvents = this.apiService.get<DayEvents[]>("calendar", "3days")
-    // this.apiService.get<DayEvents[]>("calendar", "3days").then(() => this.changeCalendarBackground())
   }
 
   ngAfterViewInit(): void {

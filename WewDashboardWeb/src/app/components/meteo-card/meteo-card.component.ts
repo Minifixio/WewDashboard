@@ -52,9 +52,7 @@ export class MeteoCardComponent implements OnInit {
   }
 
   getDateTitleFromEpoch(dt: number) {
-    const options = { weekday: "long", year: 'numeric', month: 'long', day: 'numeric' }
     const date = new Date(dt)
     return date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric'})
-
   }
 }

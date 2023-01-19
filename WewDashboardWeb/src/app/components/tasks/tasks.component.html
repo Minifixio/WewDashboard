@@ -1,21 +1,17 @@
 <div id="tasks-div">
-    <div>
-        <h2>
-            Tâches
-        </h2>
+    <div class="tasks-title">
+        <div>TODO</div>
     </div>
 
-    <div *ngFor="let todoTask of todoTasks | async">
-        <mat-card>
+    <div class="card-div-container">
+        <mat-card *ngFor="let todoTask of todoTasks | async">
 
-            <div>
-                {{todoTask.date | date:'EEEE, MMMM d'}}
+            <div class="mat-card-text-date">
+                {{getDateTitle(todoTask.date)}}
             </div>
 
-            <div>
-                <h2 class="task-h2">
-                    {{todoTask.title}}
-                </h2>
+            <div class="mat-card-text-title">
+                {{todoTask.title}}
             </div>
 
         </mat-card>

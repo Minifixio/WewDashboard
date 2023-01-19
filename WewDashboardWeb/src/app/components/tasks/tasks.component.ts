@@ -19,4 +19,8 @@ export class TasksComponent implements OnInit {
     this.todoTasks = this.apiService.get("calendar", "tasks")
   }
 
+  getDateTitle(dateStr: string) {
+    const date = new Date(dateStr)
+    return date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long'})
+  }
 }

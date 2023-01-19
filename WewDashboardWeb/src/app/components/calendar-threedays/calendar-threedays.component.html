@@ -30,7 +30,7 @@
 
 <div #calendarThreeDaysDiv id="calendarThreeDaysDiv">
     <div id="calendars-div"  >
-        <div class="day-calendar-div" *ngFor="let dayEvent of threeDaysEvents | async">
+        <div class="day-calendar-div" *ngFor="let dayEvent of threeDaysEvents">
           <div class="day-div">
             {{dayEvent.day | date:'EEEE, d'}}  
           </div>

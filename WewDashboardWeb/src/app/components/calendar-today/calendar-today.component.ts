@@ -5,6 +5,7 @@ import { CalEvent } from 'src/app/models/Calendar';
 import { CalendarEvent } from 'angular-calendar';
 import { CalendarService } from 'src/app/services/calendar.service';
 import { Observable } from 'rxjs';
+import { Logger } from 'src/app/services/logger';
 declare var gapi: any;
 
 @Component({
@@ -15,12 +16,13 @@ declare var gapi: any;
 export class CalendarTodayComponent implements OnInit {
 
   todayEvents!: CalEvent[]
-  todayEvents$!: Observable<CalEvent[]>
 
   viewDate: Date = new Date()
   nowHour: number = new Date().getHours()
   dayEndHour: number = 23
   dayStartHour: number = 7
+
+  logger = new Logger("calendar-today-component")
 
   hourSegmentHeight: number = 0
   @ViewChild('calendarDiv') calendarDiv: ElementRef | undefined;
@@ -31,7 +33,8 @@ export class CalendarTodayComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.calendarService.getCalendarSubject().then(res => {
+    this.logger.log('meteo today init')
+    this.calendarService.getCalendarTodaySubject().then(res => {
       res.asObservable().subscribe(todayEvents => {
         this.todayEvents = todayEvents
       })

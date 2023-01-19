@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CalendarEvent } from 'angular-calendar';
 import { BehaviorSubject, interval } from 'rxjs';
-import { CalEvent } from '../models/Calendar';
+import { CalEvent, DayEvents } from '../models/Calendar';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -14,6 +14,7 @@ export class CalendarService {
   private calendarInterval = interval(1000*60*60*1)
 
   public calendarTodaySubject!: BehaviorSubject<CalEvent[]>
+  public calendarThreeDaysSubject!: BehaviorSubject<DayEvents[]>
 
   constructor(
     private apiService: ApiService
@@ -24,7 +25,12 @@ export class CalendarService {
     return res
   }
 
-  private async initCalendarSubject() {
+  async getThreeDaysEvents(): Promise<DayEvents[]> {
+    const res = await this.apiService.get<DayEvents[]>("calendar", "3days")
+    return res
+  }
+
+  private async initCalendarTodaySubject() {
     const todayEvents = await this.getTodayEvents()
     this.calendarTodaySubject = new BehaviorSubject(todayEvents)
 
@@ -34,11 +40,28 @@ export class CalendarService {
     })
   }
 
-  async getCalendarSubject(): Promise<BehaviorSubject<CalEvent[]>> {
+  async getCalendarTodaySubject(): Promise<BehaviorSubject<CalEvent[]>> {
     if (!this.calendarTodaySubject) {
-      await this.initCalendarSubject()
+      await this.initCalendarTodaySubject()
     } 
     return this.calendarTodaySubject
+  }
+
+  private async initCalendarThreeDaysSubject() {
+    const threeDaysEvents = await this.getThreeDaysEvents()
+    this.calendarThreeDaysSubject = new BehaviorSubject(threeDaysEvents)
+
+    this.calendarInterval.subscribe(async () => {
+      const threeDaysEvents = await this.getThreeDaysEvents()
+      this.calendarThreeDaysSubject.next(threeDaysEvents)
+    })
+  }
+
+  async getCalendarThreeDaysSubject(): Promise<BehaviorSubject<DayEvents[]>> {
+    if (!this.calendarTodaySubject) {
+      await this.initCalendarThreeDaysSubject()
+    } 
+    return this.calendarThreeDaysSubject
   }
 
   calEventToCalendarEvent(event: CalEvent) {

@@ -11,7 +11,7 @@ import { Logger } from 'src/app/services/logger';
 })
 export class CalendarThreedaysComponent implements OnInit {
 
-  threeDaysEvents = {} as Promise<DayEvents[]>
+  threeDaysEvents!: DayEvents[]
   dayEndHour: number = 21
   dayStartHour: number = 8
   today = new Date()
@@ -30,8 +30,14 @@ export class CalendarThreedaysComponent implements OnInit {
 
   ngOnInit(): void {
     this.logger.log('meteo 3 days init')
-    this.threeDaysEvents = this.apiService.get<DayEvents[]>("calendar", "3days")
-    this.apiService.get<DayEvents[]>("calendar", "3days").then(() => this.changeCalendarBackground())
+    this.calendarService.getCalendarThreeDaysSubject().then(res => {
+      res.asObservable().subscribe(threeDaysEvents => {
+        this.threeDaysEvents = threeDaysEvents
+        setTimeout(() => this.changeCalendarBackground(), 0)
+      })
+    })
+    // this.threeDaysEvents = this.apiService.get<DayEvents[]>("calendar", "3days")
+    // this.apiService.get<DayEvents[]>("calendar", "3days").then(() => this.changeCalendarBackground())
   }
 
   ngAfterViewInit(): void {

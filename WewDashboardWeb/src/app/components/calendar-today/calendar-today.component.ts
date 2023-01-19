@@ -4,6 +4,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CalEvent } from 'src/app/models/Calendar';
 import { CalendarEvent } from 'angular-calendar';
 import { CalendarService } from 'src/app/services/calendar.service';
+import { Observable } from 'rxjs';
 declare var gapi: any;
 
 @Component({
@@ -13,7 +14,9 @@ declare var gapi: any;
 })
 export class CalendarTodayComponent implements OnInit {
 
-  todayEvents = {} as Promise<CalEvent[]>
+  todayEvents!: CalEvent[]
+  todayEvents$!: Observable<CalEvent[]>
+
   viewDate: Date = new Date()
   nowHour: number = new Date().getHours()
   dayEndHour: number = 23
@@ -28,7 +31,11 @@ export class CalendarTodayComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.todayEvents = this.apiService.get("calendar", "day")
+    this.calendarService.getCalendarSubject().then(res => {
+      res.asObservable().subscribe(todayEvents => {
+        this.todayEvents = todayEvents
+      })
+    })
   }
 
   ngAfterViewInit(): void {

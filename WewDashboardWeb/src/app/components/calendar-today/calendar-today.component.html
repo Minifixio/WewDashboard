@@ -48,7 +48,7 @@
 <div (window:resize)="onResize($event)" id="calendarDiv" #calendarDiv >
     
     <div id="calendar-container-div" *ngIf="hourSegmentHeight > 0">
-        <div id="calendar-day-view-div" *ngIf="todayEvents | async; let events">
+        <div id="calendar-day-view-div" *ngIf="todayEvents; let events">
             <mwl-calendar-day-view 
             [viewDate]="viewDate"
             [dayStartHour]="dayStartHour"

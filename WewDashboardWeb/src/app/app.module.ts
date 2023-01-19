@@ -22,6 +22,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarThreedaysComponent } from './components/calendar-threedays/calendar-threedays.component';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { ApiService } from './services/api.service';
 
 
 @NgModule({
@@ -48,7 +49,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
     BrowserAnimationsModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

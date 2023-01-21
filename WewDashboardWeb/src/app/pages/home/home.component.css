@@ -29,8 +29,8 @@
 .div1 { grid-area: 1 / 1 / 4 / 9; }
 .div2 { grid-area: 1 / 9 / 11 / 11; }
 .div3 { grid-area: 4 / 1 / 11 / 7; }
-.div4 { grid-area: 4 / 7 / 8 / 9; }
-.div5 { grid-area: 8 / 7 / 11 / 9; }
+.div4 { grid-area: 4 / 7 / 11 / 9; }
+/* .div5 { grid-area: 8 / 7 / 11 / 9; } */
 
 .parent > div {
     margin: 5px;

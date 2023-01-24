@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatGridList } from '@angular/material/grid-list';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DayForecast, WeekForecast } from 'src/app/models/Meteo';
 import { MeteoService } from 'src/app/services/meteo.service';
 
@@ -11,18 +11,20 @@ import { MeteoService } from 'src/app/services/meteo.service';
 })
 export class MeteoCardComponent implements OnInit {
 
-  rowHeight: string = "10px"
   @ViewChild('cardDiv') cardDiv: ElementRef | undefined;
 
-  @Input() dayForecast: DayForecast[] | undefined;
   @Input() dayNumber!: number
+  @Input() fiveDaysForecastSubject!: Promise<BehaviorSubject<WeekForecast | null>>
+
+  dayForecast: DayForecast[] | undefined;
+  rowHeight: string = "10px"
 
   constructor(
     private meteoService: MeteoService
   ) { }
 
   ngOnInit(): void {
-    this.meteoService.getFiveDaysForecastSubject().then(res => {
+    this.fiveDaysForecastSubject.then(res => {
       res.asObservable().subscribe(forecast => {
         type ObjectKey = keyof typeof forecast;
         const key = `day${this.dayNumber}` as ObjectKey

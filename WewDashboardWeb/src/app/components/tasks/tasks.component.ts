@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { interval } from 'rxjs';
 import { TodoTask } from 'src/app/models/TodoTask';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -9,6 +10,8 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class TasksComponent implements OnInit {
 
+  // 10 minutes interval
+  taskInterval = interval(1000*60*10)
   todoTasks= {} as Promise<TodoTask[]>
 
   constructor(
@@ -16,7 +19,9 @@ export class TasksComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.todoTasks = this.apiService.get("calendar", "tasks")
+    this.taskInterval.subscribe(() => {
+      this.todoTasks = this.apiService.get("calendar", "tasks")
+    })
   }
 
   getDateTitle(dateStr: string) {

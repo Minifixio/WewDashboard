@@ -16,19 +16,16 @@ declare var gapi: any;
 export class CalendarTodayComponent implements OnInit {
 
   todayEvents!: CalEvent[]
-
   viewDate: Date = new Date()
   nowHour: number = new Date().getHours()
   dayEndHour: number = 23
   dayStartHour: number = 7
-
   logger = new Logger("calendar-today-component")
-
   hourSegmentHeight: number = 0
-  @ViewChild('calendarDiv') calendarDiv: ElementRef | undefined;
+
+  @ViewChild('calendarDiv') calendarDiv: ElementRef | undefined
 
   constructor(
-    private apiService: ApiService,
     public calendarService: CalendarService
   ) { }
 

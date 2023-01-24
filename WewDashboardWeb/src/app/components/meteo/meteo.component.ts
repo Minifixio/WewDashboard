@@ -15,14 +15,11 @@ import { MeteoCardComponent } from '../meteo-card/meteo-card.component';
 })
 export class MeteoComponent implements OnInit {
 
-  currentForecast = {} as DayForecast;
-
-  fiveDaysForecast = {} as WeekForecast;
-
-  nextForecast = {} as DayForecast[]
-
+  dailyForecastSubject!: Promise<BehaviorSubject<DayForecast | null>>
+  fiveDaysForecastSubject!: Promise<BehaviorSubject<WeekForecast | null>>
   lon: number = myLon
   lat: number = myLat
+  fiveDaysForecast!: Promise<WeekForecast | null>
 
   @ViewChild('meteoCard', {static: true})
   meteoCard!: MeteoCardComponent
@@ -37,30 +34,10 @@ export class MeteoComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     console.log('meteo component init')
-    
-    this.meteoService.getCurrentForecast(this.lon, this.lat).then((res) => {
-      if (res==null) {
-        this.errorsService.promptError('can\'t display current forecast in meteo component')
-      } else {
-        this.currentForecast = res 
-      }
-    })
+    this.dailyForecastSubject = this.meteoService.getDailyForecastSubject()
+    this.fiveDaysForecastSubject = this.meteoService.getFiveDaysForecastSubject() 
 
-    this.meteoService.getFiveDaysForecast(this.lon, this.lat).then((res) => {
-      if (res==null) {
-        this.errorsService.promptError('can\'t display forecast in meteo component')
-      } else {
-        this.fiveDaysForecast = res 
-
-        // Next forecast is the forecast for the current day since getCurrentForecast returns only information for the instant moment 
-        // but not for te following hours of the day
-        if (this.fiveDaysForecast.day1.length < 5) {
-          this.nextForecast = Array.from([...this.fiveDaysForecast.day1, ...this.fiveDaysForecast.day2.slice(0, 5-this.fiveDaysForecast.day1.length)])
-        } else {
-          this.nextForecast = this.fiveDaysForecast.day1
-        }
-      }
-    })
+    this.fiveDaysForecast = this.meteoService.getFiveDaysForecast(this.lon, this.lat)
 
 
   }

@@ -16,15 +16,14 @@ export class CalendarThreedaysComponent implements OnInit {
   dayStartHour: number = 8
   today = new Date()
   logger = new Logger("calendar-threedays-component")
-
   hourSegmentHeight: number = 0
   hourSegments = 1
   customDayView="customDayView"
+
   @ViewChild('calendarThreeDaysDiv') calendarThreeDaysDiv: ElementRef | undefined;
   @ViewChildren('calendarDayViewDiv') calendarDayViewDiv: QueryList<ElementRef> | undefined;
 
   constructor(
-    private apiService: ApiService,
     public calendarService: CalendarService
   ) { }
 

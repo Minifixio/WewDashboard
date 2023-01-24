@@ -38,7 +38,5 @@ export class MeteoComponent implements OnInit {
     this.fiveDaysForecastSubject = this.meteoService.getFiveDaysForecastSubject() 
 
     this.fiveDaysForecast = this.meteoService.getFiveDaysForecast(this.lon, this.lat)
-
-
   }
 }

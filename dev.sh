@@ -1,16 +1,13 @@
 #!/bin/bash
 
-echo "Starting build..."
+echo "Starting dev env..."
 echo "WewDashboard - Setting the backend"
 cd WewDashboardBackend
-npm install
-pm2 start dist/index.js --name WewDashboard
+pm2 start dist/index.js --name WewDashboardDev
 cd ..
 
 echo "WewDashboard - Setting the client"
 cd WewDashboardWeb
-npm install
-http-server dist/WewDashboardWeb/
-
+ng serve
 
 

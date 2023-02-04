@@ -114,6 +114,7 @@ class CalendarManager {
                 res.push(this.veventToTodoTask(event, agenda));
             }
         }
+        res.sort((a, b) => { return a.date.getTime() - b.date.getTime(); });
         return res;
     }
     getEventsInRange(calResponse, start, end, agenda) {

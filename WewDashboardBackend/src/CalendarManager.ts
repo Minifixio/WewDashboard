@@ -129,6 +129,7 @@ export class CalendarManager {
             }
         }
         
+        res.sort((a,b) => {return a.date.getTime()-b.date.getTime()})
         return res
     }
 

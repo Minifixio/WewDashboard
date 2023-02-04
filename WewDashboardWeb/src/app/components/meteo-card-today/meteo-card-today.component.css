@@ -57,7 +57,7 @@
 }
 
 .weather-icon {
-    width: 9%;
+    width: 20%;
 }
 
 #main-weather-icon {
@@ -86,17 +86,18 @@
 }
 
 .mat-grid-tile {
-    font-size: 0.7vw;
+    font-size: 1.8vw;
 }
 
 .temp-p {
     padding-left: 10px;
-    font-size: large;
+    font-size: 2vw;
+    font-weight: 900;
 }
 
 .hour-b {
     padding-right: 5px;
-    font-size: larger;
+    font-weight: 400;
 }
 
 .rain-icon {

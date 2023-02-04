@@ -11,7 +11,7 @@
 }
 
 .mat-grid-tile {
-    font-size: 0.7vw;
+    font-size: 1.2vw;
 }
 
 .weather-icon {
@@ -67,9 +67,11 @@
     right: 0;
     font-size: larger;
     margin: 0;
+    font-weight: 900;
 }
 
 .hour-b {
     padding-right: 5px;
+    font-weight: 400;
 }
 

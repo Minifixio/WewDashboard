@@ -22,25 +22,29 @@ class API {
         this.port = port;
         this.app = (0, express_1.default)();
         this.app.use((0, cors_1.default)());
+        this.app.use(express_1.default.static("./app"));
+        this.app.get("/", function (req, res) {
+            res.sendFile("index.html", { root: "./app" });
+        });
         this.calendarManager = calendarManager;
         this.debug = new DebugManager_1.DebugManager('ApiManager');
     }
     start() {
-        this.app.get('/test', (req, res) => {
+        this.app.get('/api/test', (req, res) => {
             res.send('Test is working');
         });
-        this.app.get('/', (req, res) => {
+        this.app.get('/api', (req, res) => {
             res.send('WewDashboardBackend live !');
         });
-        this.app.get('/calendar/day', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.app.get('/api/calendar/day', (req, res) => __awaiter(this, void 0, void 0, function* () {
             const data = yield this.calendarManager.getDayEvents();
             res.send(JSON.stringify(data));
         }));
-        this.app.get('/calendar/3days', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.app.get('/api/calendar/3days', (req, res) => __awaiter(this, void 0, void 0, function* () {
             const data = yield this.calendarManager.get3daysEvents();
             res.send(JSON.stringify(data));
         }));
-        this.app.get('/calendar/tasks', (req, res) => __awaiter(this, void 0, void 0, function* () {
+        this.app.get('/api/calendar/tasks', (req, res) => __awaiter(this, void 0, void 0, function* () {
             const data = yield this.calendarManager.getTodoTasks();
             res.send(JSON.stringify(data));
         }));

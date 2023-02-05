@@ -13,7 +13,7 @@ export class ApiService {
   ) { }
 
   async get<T>(service: string, endpoint: string) {
-    const url = `http://localhost:${this.port}/${service}/${endpoint}`
+    const url = `http://localhost:${this.port}/api/${service}/${endpoint}`
     return this.http.get<T>(url).toPromise()
   }
 }

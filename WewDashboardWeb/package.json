@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "postbuild": "copyfiles -f /dist/WewDashboardWeb/** ../out/app && copyfiles -f ./dist/WewDashboardWeb/**/* ../WewDashboardBackend/app"
+    "postbuild": "copyfiles -u 2 ./dist/WewDashboardWeb/** ./dist/WewDashboardWeb/**/* ./dist/WewDashboardWeb/**/**/* ../out/app && copyfiles -u 2  ./dist/WewDashboardWeb/** ./dist/WewDashboardWeb/* ./dist/WewDashboardWeb/assets/ ../WewDashboardBackend/app"
   },
   "private": true,
   "dependencies": {

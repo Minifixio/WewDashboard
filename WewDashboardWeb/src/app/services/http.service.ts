@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { openWeatherMapApiKey } from '../credentials';
 import { ErrorsService } from './errors.service';
+import * as meteo_config from '../../assets/config/meteo_config.json';
+import { MeteoConfig } from '../models/MeteoConfig';
+
+const meteoConfig = (meteo_config as MeteoConfig)
 
 interface Param {
   name: string
@@ -21,7 +24,7 @@ export class HttpService {
 
   async getOpenWeatherMap<T>(type: string, version: string, tag: string,  params: Param[]) {
     const paramsUrl = params.map((param) => {return `${param.name}=${param.value}` }).join('&')
-    const url = `https://api.openweathermap.org/${type}/${version}/${tag}?${paramsUrl}&appid=${openWeatherMapApiKey}&units=metric&lang=en`
+    const url = `https://api.openweathermap.org/${type}/${version}/${tag}?${paramsUrl}&appid=${meteoConfig.openWeatherMapApiKey}&units=metric&lang=en`
     try {
       return this.http.get<T>(url).toPromise()
     } catch(e) {

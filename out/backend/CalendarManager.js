@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CalendarManager = void 0;
 const node_ical_1 = __importDefault(require("node-ical"));
 const DebugManager_1 = require("./DebugManager");
-const agendasConfig = require('./agendas/agendas-config.json');
+const agendasConfig = require('./config/agendas-config.json');
 class CalendarManager {
     constructor(agendas) {
         this.agendas = {};

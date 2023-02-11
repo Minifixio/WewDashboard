@@ -3,7 +3,7 @@ import { API } from './ApiManager';
 import { CalendarManager } from './CalendarManager';
 
 async function init() {
-  const agendaManager = new AgendaManager('agendas')
+  const agendaManager = new AgendaManager('config')
   const agendas = await agendaManager.loadAgendas()
 
   const calendarManager = new CalendarManager(agendas)

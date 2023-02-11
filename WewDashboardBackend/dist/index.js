@@ -14,7 +14,7 @@ const ApiManager_1 = require("./ApiManager");
 const CalendarManager_1 = require("./CalendarManager");
 function init() {
     return __awaiter(this, void 0, void 0, function* () {
-        const agendaManager = new AgendaManager_1.AgendaManager('agendas');
+        const agendaManager = new AgendaManager_1.AgendaManager('config');
         const agendas = yield agendaManager.loadAgendas();
         const calendarManager = new CalendarManager_1.CalendarManager(agendas);
         const api = new ApiManager_1.API(3000, calendarManager);

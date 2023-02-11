@@ -4,10 +4,7 @@ import { ErrorsService } from './errors.service';
 import { HttpService } from './http.service';
 import { Logger } from './logger';
 import { BehaviorSubject, interval } from 'rxjs';
-import * as meteo_config from '../../assets/config/meteo_config.json';
-import { MeteoConfig } from '../models/MeteoConfig';
-
-const meteoConfig = (meteo_config as MeteoConfig)
+import { myLat, myLon } from 'src/app/credentials';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +51,7 @@ export class MeteoService {
 
   async getDailyForecastSubject(): Promise<BehaviorSubject<DayForecast | null>> {
     if(!this.dailyForecastSubject) {
-      const res = await this.initDailyForecastSubject(meteoConfig.myLon, meteoConfig.myLat)
+      const res = await this.initDailyForecastSubject(myLon, myLat)
       return res
     } else {
       return new Promise((resolve) => {resolve(this.dailyForecastSubject)})
@@ -63,7 +60,7 @@ export class MeteoService {
 
   async getFiveDaysForecastSubject(): Promise<BehaviorSubject<WeekForecast | null>> {
     if(!this.fiveDaysForecastSubject) {
-      const res = await this.initFiveDaysForecastSubject(meteoConfig.myLon, meteoConfig.myLat)
+      const res = await this.initFiveDaysForecastSubject(myLon, myLat)
       return res
     } else {
       return new Promise((resolve) => {resolve(this.fiveDaysForecastSubject)})

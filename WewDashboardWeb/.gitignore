@@ -44,4 +44,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
-/src/app/credentials.ts
+#Credentials
+/src/assets/config/meteo_config.json
+
+#Outputs
+/dist

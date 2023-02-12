@@ -1,6 +1,0 @@
-{
-    "_comment": "Call your file meteo_config.json and add the following propreties :",
-    "openWeatherMapApiKey": "YOUR_OPEN_WEATHER_MAP_API_KEY",
-    "myLon": 12.301,
-    "myLat": 3.461
-}

@@ -1,9 +1,0 @@
-/node_modules
-/dist
-/app/assets/config/*
-!/app/assets/config/_meteo_config.json
-/src/config/*
-!/src/config/cal-example.json
-!/src/config/agendas-config.json
-!/dist/config/agendas-config.json
-!/dist/config/cal-example.json

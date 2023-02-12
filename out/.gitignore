@@ -1,3 +1,4 @@
 node_modules
 app/assets/config/meteo_config.json
 backend/config/*
+!backend/config/agendas-config.json

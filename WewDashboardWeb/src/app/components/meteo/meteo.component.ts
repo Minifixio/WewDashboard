@@ -32,7 +32,6 @@ export class MeteoComponent implements OnInit {
 
   constructor(
     private meteoService: MeteoService,
-    private errorsService: ErrorsService
   ) { }
 
   async ngOnInit(): Promise<void> {

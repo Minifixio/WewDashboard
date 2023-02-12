@@ -10,8 +10,8 @@ import { ApiService } from './api.service';
 })
 export class CalendarService {
 
-  // Update calendar every hours
-  private calendarInterval = interval(1000*10)
+  // Update calendar every 5 minutes
+  private calendarInterval = interval(1000*60*5)
 
   public calendarTodaySubject!: BehaviorSubject<CalEvent[]>
   public calendarThreeDaysSubject!: BehaviorSubject<DayEvents[]>

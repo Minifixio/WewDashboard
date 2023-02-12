@@ -31,7 +31,9 @@ export class CalendarThreedaysComponent implements OnInit {
     this.logger.log('meteo 3 days init')
     this.calendarService.getCalendarThreeDaysSubject().then(res => {
       res.asObservable().subscribe(threeDaysEvents => {
-        this.threeDaysEvents = threeDaysEvents
+        if (this.threeDaysEvents != threeDaysEvents) {
+          this.threeDaysEvents = threeDaysEvents
+        }
         setTimeout(() => this.changeCalendarBackground(), 0)
       })
     })

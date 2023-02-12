@@ -5,7 +5,7 @@ import { AgendasConfig } from './models/AgendasConfig';
 import { CalEvent } from './models/CalEvent';
 import { DayEvents } from './models/DayEvents';
 import { TodoTask } from './models/TodoTask';
-const agendasConfig: AgendasConfig = require('./agendas/agendas-config.json');
+const agendasConfig: AgendasConfig = require('./config/agendas-config.json');
 
 
 export class CalendarManager {

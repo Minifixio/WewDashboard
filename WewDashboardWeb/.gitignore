@@ -44,8 +44,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
-#Credentials
+# Credentials
 /src/assets/config/meteo_config.json
 
-#Outputs
+# Outputs
 /dist

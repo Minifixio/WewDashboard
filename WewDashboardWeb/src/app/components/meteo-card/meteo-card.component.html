@@ -1,0 +1,28 @@
+<div id="cardDiv" #cardDiv>
+    <mat-card>
+        <div class="title-div">
+            <h1 class="day-title">{{dayForecast ? getDateTitleFromEpoch(dayForecast[0].date_unix * 1000) : '---'}}</h1>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-grid-list [rowHeight]="rowHeight" cols="1" (window:resize)="onResize($event)">
+            <mat-grid-tile *ngFor="let forecast of dayForecast" rowspan="1">
+                <div class="tile-content">
+                    
+                    <b class="hour-b">{{forecast.date_unix * 1000 | date:'HH:mm' }}</b> 
+                    
+                    <div>
+                        
+                        <img class="weather-icon" [src]="getWeatherIconURL(forecast.icon)">
+                        
+                        <div *ngIf="forecast.rain_prob" class="rain-infos-div">
+                            {{forecast.rain_prob * 100 | number : '1.0-0'}}%
+
+                        </div>
+                        
+                    </div>
+                </div>
+                <p class="temp-p">{{forecast.temp | number : '1.0-0'}}°C</p>
+            </mat-grid-tile>
+          </mat-grid-list>
+    </mat-card>
+</div>

@@ -1,0 +1,32 @@
+#main-div {
+    display: flex;
+    height: 100%;
+}
+
+#card-1 {
+    flex: 2 1 0;
+}
+
+#card-2 {
+    flex: 1 1 0;
+}
+
+#card-3 {
+    flex: 1 1 0;
+}
+
+#card-4 {
+    flex: 1 1 0;
+}
+
+#card-5 {
+    flex: 1 1 0;
+}
+
+#card-6 {
+    flex: 1 1 0;
+}
+
+.meteo-card {
+    margin: 5px;
+}

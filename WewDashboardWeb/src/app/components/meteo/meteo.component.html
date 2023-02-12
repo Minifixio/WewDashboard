@@ -1,0 +1,43 @@
+<div id="main-div">
+    <app-meteo-card-today 
+        [dailyForecastSubject]="dailyForecastSubject"
+        [fiveDaysForecastSubject]="fiveDaysForecastSubject"
+        id="card-1" 
+        class="meteo-card">
+    </app-meteo-card-today>
+    
+    <app-meteo-card 
+        [dayNumber]="2" 
+        [fiveDaysForecastSubject]="fiveDaysForecastSubject"
+        id="card-2" 
+        class="meteo-card">
+    </app-meteo-card>
+    <app-meteo-card 
+        [dayNumber]="3" 
+        [fiveDaysForecastSubject]="fiveDaysForecastSubject"
+        id="card-3" 
+        class="meteo-card">
+    </app-meteo-card>
+    <app-meteo-card 
+        [dayNumber]="4" 
+        [fiveDaysForecastSubject]="fiveDaysForecastSubject"
+        id="card-4" 
+        class="meteo-card">
+    </app-meteo-card>
+    <app-meteo-card 
+        [dayNumber]="5" 
+        [fiveDaysForecastSubject]="fiveDaysForecastSubject" 
+        id="card-5" 
+        class="meteo-card">
+    </app-meteo-card>
+    
+    <!--Because the last day can be empty-->
+    <app-meteo-card 
+        *ngIf="(fiveDaysForecast | async)?.day6?.length" 
+        [dayNumber]="6"
+        [fiveDaysForecastSubject]="fiveDaysForecastSubject"
+        id="card-6" 
+        class="meteo-card">
+    </app-meteo-card>
+</div>
+

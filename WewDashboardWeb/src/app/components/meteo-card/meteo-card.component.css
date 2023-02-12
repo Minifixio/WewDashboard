@@ -1,0 +1,77 @@
+.mat-card {
+    height: fit-content;
+    padding: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background: #42424254;
+}
+
+#cardDiv {
+    height: 100%;
+}
+
+.mat-grid-tile {
+    font-size: 1.2vw;
+}
+
+.weather-icon {
+    width: 30%;
+}
+
+.tile-content{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    position: absolute;
+    left: 0;
+    height: 100%;
+}
+
+.tile-content > div{
+    display: flex;
+    align-items: center;
+}
+
+.tile-content > div > p{
+    margin: 0;
+}
+
+.day-title {
+    margin: 0;
+    font-size: 1.2vw;
+    text-transform: capitalize;
+    text-align: center;
+    position: absolute;
+}
+
+.title-div {
+    display: flex;
+    align-items: center;
+    align-content: flex-start;
+    height: 2.5vh;
+}
+
+.rain-icon {
+    filter: invert(100%) sepia(9%) saturate(7500%) hue-rotate(173deg) brightness(114%) contrast(95%);
+    width: 30%;
+    height: 30%;
+}
+
+.rain-infos-div {
+    display: flex;
+    align-items: center;
+}
+
+.temp-p {
+    position: absolute;
+    right: 0;
+    font-size: larger;
+    margin: 0;
+    font-weight: 900;
+}
+
+.hour-b {
+    padding-right: 5px;
+    font-weight: 400;
+}
+

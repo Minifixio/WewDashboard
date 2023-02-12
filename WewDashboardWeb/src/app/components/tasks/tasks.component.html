@@ -1,0 +1,20 @@
+<div id="tasks-div">
+    <div class="tasks-title">
+        <div>TODO</div>
+    </div>
+
+    <div class="card-div-container">
+        <mat-card *ngFor="let todoTask of todoTasks | async">
+
+            <div class="mat-card-text-date">
+                {{getDateTitle(todoTask.date)}}
+            </div>
+
+            <div class="mat-card-text-title">
+                {{todoTask.title}}
+            </div>
+
+        </mat-card>
+    </div>
+
+</div>

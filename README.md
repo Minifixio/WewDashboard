@@ -98,6 +98,9 @@ You can then build it using `ng build` and copy the outputs to `/out` using `npm
 ### The backend app
 The backend is made using nodeJS and express. You can as well edit it and use the same `npm start postbuild` to copy outputs to `/out`. I used the TypeScript to develop the nodeJS app as well as live-reloading processes.
 
+### Developing tools
+You can use the scripts `dev.sh` to run run the backend in *pm2* and start the Angular dev environment to work on the frontend interface.
+
 
 <br>
 
